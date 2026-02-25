@@ -1,1 +1,3 @@
-console.log('Hello wolrd, yes');
+require('dotenv').config();
+
+console.log(`The bum id ${process.env.BUM}`);
