@@ -10,6 +10,7 @@ import ErrorHandlerMiddleware from './middleware/error-handler.ts';
 
 import authRouter from './routes/auth.ts';
 
+app.use(express.json());
 
 app.use('/api/auth', authRouter);
 
