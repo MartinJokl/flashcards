@@ -14,7 +14,7 @@ async function AuthMiddleware(req: Request, _res: Response, next: NextFunction) 
         if (!token) {
             throw new Error();
         }
-        const payload = <jwt.UserIDJwtPayload>jwt.verify(token, process.env.JWT_SECRET!);
+        const payload = jwt.verify(token, process.env.JWT_SECRET!) as jwt.UserIDJwtPayload;
         const userId = payload.userId;
 
         const user = await User.findById(userId);
