@@ -11,7 +11,7 @@ declare module 'jsonwebtoken' {
 }
 
 
-async function AuthMiddleware(req: Request, res: Response, next: NextFunction) {
+async function AuthMiddleware(req: Request, _res: Response, next: NextFunction) {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -37,3 +37,5 @@ async function AuthMiddleware(req: Request, res: Response, next: NextFunction) {
         next(new UnauthorizedError('Invalid authorization'))
     }
 }
+
+export default AuthMiddleware;
