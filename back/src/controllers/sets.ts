@@ -8,6 +8,7 @@ import type { IdResponse } from '../types/id-response.ts';
 import NotFoundError from '../errors/not-found.ts';
 import type { SetResponse, SetsResponse } from '../types/set-responses.ts';
 import type { Flashcard } from '../types/flashcard.ts';
+import type { MessageResponse } from '../types/message-response.ts';
 
 export async function getSet(req: Request<IdParams>, res: Response<SetResponse>) {
     const setId = req.params.id;
@@ -66,7 +67,7 @@ export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdR
         description?: string,
         createdBy: string,
         flashcards: Flashcard[]
-    } = {name: req.body.name, createdBy: user._id,  flashcards: req.body.flashcards };
+    } = {name: req.body.name, createdBy: user.id,  flashcards: req.body.flashcards };
     if (req.body.description) {
         creationSet.description = req.body.description;
     }
@@ -74,10 +75,10 @@ export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdR
     res.status(201).json({ id: String(set._id) });
 }
 
-export async function updateSet(req: Request<IdParams>, res: Response) {
+export async function updateSet(req: Request<IdParams>, res: Response<MessageResponse>) {
     
 }
 
-export async function deleteSet(req: Request<IdParams>, res: Response) {
-
+export async function deleteSet(req: Request<IdParams>, res: Response<MessageResponse>) {
+    
 }

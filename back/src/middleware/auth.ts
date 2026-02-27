@@ -22,7 +22,7 @@ async function AuthMiddleware(req: Request, _res: Response, next: NextFunction) 
             throw new Error();
         }
         req.user = {
-            _id: String(user._id),
+            id: String(user._id),
             username: user.username
         }
         next();
