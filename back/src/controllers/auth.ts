@@ -1,12 +1,12 @@
 import type { Request, Response } from "express-serve-static-core";
-import type { LoginUser, RegisterUser } from "../types/user-auth.ts";
+import type { LoginUser, RegisterUser } from "../types/user-auth-body.ts";
 import BadRequestError from "../errors/bad-request.ts";
 import User from "../models/User.ts";
 import UnauthorizedError from "../errors/unauthorized.ts";
-import type { ErrorResponse } from "../types/error-response.ts";
+import type { MessageResponse } from "../types/message-response.ts";
 import type { TokenResponse } from "../types/token-response.ts";
 
-export async function register(req: Request<{}, {}, RegisterUser>, res: Response<ErrorResponse | TokenResponse>) {
+export async function register(req: Request<{}, {}, RegisterUser>, res: Response<MessageResponse | TokenResponse>) {
     const { username, password } = req.body;
     if (!username || !password) {
         throw new BadRequestError('You must provide a username and password');
@@ -19,7 +19,7 @@ export async function register(req: Request<{}, {}, RegisterUser>, res: Response
     res.status(201).json({ token })
 }
 
-export async function login(req: Request<{}, {}, LoginUser>, res: Response<ErrorResponse | TokenResponse>) {
+export async function login(req: Request<{}, {}, LoginUser>, res: Response<MessageResponse | TokenResponse>) {
     const { username, password } = req.body;
     if (!username || !password) {
         throw new BadRequestError('You must provide a username and password');
