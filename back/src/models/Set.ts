@@ -12,9 +12,21 @@ const flashcardSchema = new mongoose.Schema({
 });*/
 
 const setSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, 'You must provide a name']
+    },
+    description: {
+        type: String,
+    },
     likes: {
         type: Number,
         default: 0
+    },
+    createdBy: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'You have to provide a user']
     },
     flashcards: {
         type: [{
@@ -22,16 +34,7 @@ const setSchema = new mongoose.Schema({
             answer: String
         }],
         required: [true, 'You must provide flashcards']
-    },
-    name: {
-        type: String,
-        required: [true, 'You must provide a name']
-    },
-    createdBy: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
-        required: [true, 'You have to provide a user']
     }
-});
+}, { timestamps: true });
 
 export default mongoose.model('Set', setSchema);
