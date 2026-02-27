@@ -4,13 +4,6 @@ import UnauthorizedError from "../errors/unauthorized.ts";
 import jwt from "jsonwebtoken";
 import User from "../models/User.ts";
 
-declare module 'jsonwebtoken' {
-    export interface UserIDJwtPayload extends jwt.JwtPayload {
-        userId: string
-    }
-}
-
-
 async function AuthMiddleware(req: Request, _res: Response, next: NextFunction) {
     try {
         const authHeader = req.headers.authorization;
