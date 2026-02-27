@@ -36,7 +36,7 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
         // divnej replace s regexes, aby vymenil vsechny, ne jeden
     }
     else {
-        result = result.sort('likes');
+        result = result.sort('-likes name');
     }
 
     const limit = Number(req.query.limit ?? 10);

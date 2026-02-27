@@ -14,10 +14,13 @@ const flashcardSchema = new mongoose.Schema({
 const setSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'You must provide a name']
+        required: [true, 'You must provide a name'],
+        minlength: 3,
+        maxlength: 30
     },
     description: {
         type: String,
+        maxlength: 200
     },
     likes: {
         type: Number,
@@ -33,6 +36,7 @@ const setSchema = new mongoose.Schema({
             question: String,
             answer: String
         }],
+        maxlength: 1000,
         required: [true, 'You must provide flashcards']
     }
 }, { timestamps: true });
