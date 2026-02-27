@@ -1,4 +1,4 @@
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express-serve-static-core";
 import UnauthorizedError from "../errors/unauthorized.ts";
 
 import jwt from "jsonwebtoken";
