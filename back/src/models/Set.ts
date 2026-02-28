@@ -22,10 +22,6 @@ const setSchema = new mongoose.Schema({
         type: String,
         maxlength: 200
     },
-    likes: {
-        type: Number,
-        default: 0
-    },
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
@@ -39,6 +35,14 @@ const setSchema = new mongoose.Schema({
         }],
         maxlength: 1000,
         required: [true, 'You must provide flashcards']
+    },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    likers: {
+        type: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+        default: []
     }
 }, { timestamps: true });
 

@@ -9,6 +9,7 @@ import NotFoundError from '../errors/not-found.ts';
 import type { SetResponse, SetsResponse } from '../types/set-responses.ts';
 import type { Flashcard } from '../types/flashcard.ts';
 import type { MessageResponse } from '../types/message-response.ts';
+import mongoose from 'mongoose';
 
 export async function getSet(req: Request<IdParams>, res: Response<SetResponse>) {
     const setId = req.params.id;
@@ -82,9 +83,9 @@ export async function updateSet(req: Request<IdParams, {}, SetBody>, res: Respon
     
     const set = await Set.findOneAndUpdate({ _id: setId, createdBy: user.id }, req.body, { runValidators: true });
     if (!set) {
-        throw new NotFoundError('Set does not exist')
+        throw new NotFoundError('Set does not exist');
     }
-    res.status(200).json({message: 'Set updated'})
+    res.status(200).json({message: 'Set updated'});
 }
 
 export async function deleteSet(req: Request<IdParams>, res: Response<MessageResponse>) {
@@ -92,4 +93,42 @@ export async function deleteSet(req: Request<IdParams>, res: Response<MessageRes
     const setId = req.params.id;
     await Set.findOneAndDelete({ _id: setId, createdBy: user.id });
     res.status(200).json({message: 'Set deleted'})
+}
+
+export async function likeSet(req: Request<IdParams>, res: Response<MessageResponse>) {
+    const user = req.user!;
+    const userId = new mongoose.Types.ObjectId(user.id)
+    const setId = req.params.id;
+    const set = await Set.findByIdAndUpdate(setId, { 
+        $addToSet: { likers: userId }
+    }, { new: true });
+
+    if (!set) {
+        throw new NotFoundError('Set does not exist');
+    }
+
+    await set.updateOne({ 
+        likes: set.likers.length
+    });
+    
+    res.status(200).json({ message: 'Set liked' })
+}
+
+export async function unlikeSet(req: Request<IdParams>, res: Response<MessageResponse>) {
+    const user = req.user!;
+    const userId = new mongoose.Types.ObjectId(user.id)
+    const setId = req.params.id;
+    const set = await Set.findByIdAndUpdate(setId, { 
+        $pull: { likers: userId }
+    }, { new: true });
+
+    if (!set) {
+        throw new NotFoundError('Set does not exist');
+    }
+
+    await set.updateOne({ 
+        likes: set.likers.length
+    });
+    
+    res.status(200).json({ message: 'Set unliked' })
 }
