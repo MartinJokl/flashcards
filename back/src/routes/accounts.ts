@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/login', login);
 router.route('/').post(createAccount).patch(AuthMiddleware, updateAccount).delete(AuthMiddleware, deleteAccount);
-router.route('/api/:id').get(getAccount)
+router.route('/:id').get(getAccount)
 
 export default router;

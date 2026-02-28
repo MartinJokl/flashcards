@@ -12,8 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'You must provide a password'],
-        minlength: 8
+        required: [true, 'You must provide a password']
     }
 }, {
     methods: {
@@ -27,12 +26,6 @@ const userSchema = new mongoose.Schema({
             });
         }
     }
-});
-
-userSchema.pre('save', async function() {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(this.password, salt);
-    this.password = hashedPassword;
 });
 
 export default mongoose.model('User', userSchema);
