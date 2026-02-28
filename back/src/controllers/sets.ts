@@ -19,7 +19,7 @@ export async function getSet(req: Request<IdParams>, res: Response<SetResponse>)
     const flashcards = set.flashcards.map(card => {
         return { question: card.question ?? 'question', answer: card.answer ?? 'answer' }
     });
-    res.status(200).json({ name: set.name, description: set.description, likes: set.likes, createdBy: String(set.createdBy), flashcards })
+    res.status(200).json({ name: set.name, description: set.description, id: String(set._id), likes: set.likes, createdBy: String(set.createdBy), flashcards })
 }
 
 export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: Response<SetsResponse>) {
@@ -45,12 +45,13 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
     const skip = (page - 1) * limit;
     result = result.skip(skip).limit(limit);
 
-    const sets = await result.select('name description likes');
+    const sets = await result.select('name description _id likes');
     const returnSets = sets.map(set => {
         return {
             name: set.name,
             description: set.description,
-            likes: set.likes
+            id: String(set._id),
+            likes: set.likes,
         }
     })
      
@@ -75,10 +76,20 @@ export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdR
     res.status(201).json({ id: String(set._id) });
 }
 
-export async function updateSet(req: Request<IdParams>, res: Response<MessageResponse>) {
+export async function updateSet(req: Request<IdParams, {}, SetBody>, res: Response<MessageResponse>) {
+    const user = req.user!;
+    const setId = req.params.id;
     
+    const set = await Set.findOneAndUpdate({ _id: setId, createdBy: user.id }, req.body, { runValidators: true });
+    if (!set) {
+        throw new NotFoundError('Set does not exist')
+    }
+    res.status(200).json({message: 'Set updated'})
 }
 
 export async function deleteSet(req: Request<IdParams>, res: Response<MessageResponse>) {
-    
+    const user = req.user!;
+    const setId = req.params.id;
+    await Set.findOneAndDelete({ _id: setId, createdBy: user.id });
+    res.status(200).json({message: 'Set deleted'})
 }
