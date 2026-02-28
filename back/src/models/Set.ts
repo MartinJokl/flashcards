@@ -29,7 +29,8 @@ const setSchema = new mongoose.Schema({
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
-        required: [true, 'You have to provide a user']
+        required: [true, 'You have to provide a user'],
+        immutable: true
     },
     flashcards: {
         type: [{
