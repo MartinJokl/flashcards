@@ -1,6 +1,7 @@
 export interface SetQueryParams {
-    name: string,
-    sort: string,
-    page: string,
-    limit: string
+    name?: string,
+    sort?: string,
+    likerId?: string,
+    page?: string,
+    limit?: string
 }

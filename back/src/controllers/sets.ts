@@ -24,12 +24,16 @@ export async function getSet(req: Request<IdParams>, res: Response<SetResponse>)
 }
 
 export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: Response<SetsResponse>) {
-    const {name, sort} = req.query;
+    const {name, sort, likerId} = req.query;
     const queryObject: {
-        name?: object
+        name?: object,
+        likers?: mongoose.Types.ObjectId
     } = {};
     if (name) {
         queryObject.name = { $regex: name, $options: 'i' } // i = case insesitive
+    }
+    if (likerId) {
+        queryObject.likers = new mongoose.Types.ObjectId(likerId);
     }
     let result = Set.find(queryObject);
 
