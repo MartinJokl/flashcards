@@ -1,15 +1,8 @@
-import mongoose, { Document } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
-interface IUser extends Document {
-    username: string,
-    password: string,
-    checkPassword: (candidatePassword: string) => boolean,
-    createJWT: () => string
-}
-
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, 'You must provide a username'],
@@ -22,6 +15,18 @@ const userSchema = new mongoose.Schema<IUser>({
         required: [true, 'You must provide a password'],
         minlength: 8
     }
+}, {
+    methods: {
+        async checkPassword(candidatePassword: string) {
+            return await bcrypt.compare(candidatePassword, this.password);
+        },
+        createJWT() {
+            const lifetime = '30d';
+            return jwt.sign({ userId: this._id}, process.env.JWT_SECRET!, {
+                expiresIn: lifetime
+            });
+        }
+    }
 });
 
 userSchema.pre('save', async function() {
@@ -29,16 +34,5 @@ userSchema.pre('save', async function() {
     const hashedPassword = await bcrypt.hash(this.password, salt);
     this.password = hashedPassword;
 });
-
-userSchema.method('checkPassword', async function(candidatePassword: string) {
-    return await bcrypt.compare(candidatePassword, this.password);
-})
-
-userSchema.method('createJWT', function() {
-    const lifetime = '30d';
-    return jwt.sign({ userId: this._id}, process.env.JWT_SECRET!, {
-        expiresIn: lifetime
-    })
-})
 
 export default mongoose.model('User', userSchema);
