@@ -6,19 +6,6 @@ import UnauthorizedError from "../errors/unauthorized.ts";
 import type { MessageResponse } from "../types/message-response.ts";
 import type { TokenResponse } from "../types/token-response.ts";
 
-export async function register(req: Request<{}, {}, RegisterUser>, res: Response<MessageResponse | TokenResponse>) {
-    const { username, password } = req.body;
-    if (!username || !password) {
-        throw new BadRequestError('You must provide a username and password');
-    }
-    else if (password.length < 8) {
-        throw new UnauthorizedError('Password must be at least 8 characters long');
-    }
-    const user = await User.create({ username, password });
-    const token = user.createJWT();
-    res.status(201).json({ token })
-}
-
 export async function login(req: Request<{}, {}, LoginUser>, res: Response<MessageResponse | TokenResponse>) {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -34,4 +21,17 @@ export async function login(req: Request<{}, {}, LoginUser>, res: Response<Messa
     }
     const token = user.createJWT();
     res.status(200).json({ token });
+}
+
+export async function createAccount(req: Request<{}, {}, RegisterUser>, res: Response<MessageResponse | TokenResponse>) {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        throw new BadRequestError('You must provide a username and password');
+    }
+    else if (password.length < 8) {
+        throw new UnauthorizedError('Password must be at least 8 characters long');
+    }
+    const user = await User.create({ username, password });
+    const token = user.createJWT();
+    res.status(201).json({ token })
 }
