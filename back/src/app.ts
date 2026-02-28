@@ -8,12 +8,12 @@ import connectDB from './db/connect.ts';
 
 import ErrorHandlerMiddleware from './middleware/error-handler.ts';
 
-import authRouter from './routes/auth.ts';
+import accountRouter from './routes/accounts.ts';
 import setRouter from './routes/sets.ts';
 
 app.use(express.json());
 
-app.use('/api/auth', authRouter);
+app.use('/api/accounts', accountRouter);
 app.use('/api/sets', setRouter);
 
 app.use(ErrorHandlerMiddleware);

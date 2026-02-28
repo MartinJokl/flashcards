@@ -23,7 +23,37 @@ export async function login(req: Request<{}, {}, LoginUser>, res: Response<Messa
     res.status(200).json({ token });
 }
 
+export async function getAccount() {
+    
+}
+
 export async function createAccount(req: Request<{}, {}, RegisterUser>, res: Response<MessageResponse | TokenResponse>) {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        throw new BadRequestError('You must provide a username and password');
+    }
+    else if (password.length < 8) {
+        throw new UnauthorizedError('Password must be at least 8 characters long');
+    }
+    const user = await User.create({ username, password });
+    const token = user.createJWT();
+    res.status(201).json({ token })
+}
+
+export async function updateAccount(req: Request<{}, {}, RegisterUser>, res: Response<MessageResponse | TokenResponse>) {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        throw new BadRequestError('You must provide a username and password');
+    }
+    else if (password.length < 8) {
+        throw new UnauthorizedError('Password must be at least 8 characters long');
+    }
+    const user = await User.create({ username, password });
+    const token = user.createJWT();
+    res.status(201).json({ token })
+}
+
+export async function deleteAccount(req: Request<{}, {}, RegisterUser>, res: Response<MessageResponse | TokenResponse>) {
     const { username, password } = req.body;
     if (!username || !password) {
         throw new BadRequestError('You must provide a username and password');
