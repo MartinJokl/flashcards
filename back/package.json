@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "run": "tsc && node dist/app",
-    "dev": "nodemon src/app.ts"
+    "start": "tsc && node dist/app.js",
+    "check-types": "tsc --noEmit",
+    "dev": "node --watch src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,6 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
-    "@types/node": "^25.3.0",
-    "nodemon": "^3.1.14"
+    "@types/node": "^25.3.0"
   }
 }
