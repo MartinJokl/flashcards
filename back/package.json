@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && node dist/app.js",
+    "start": "tsc && node --env-file=.env dist/app.js",
     "check-types": "tsc --noEmit",
-    "dev": "node --watch src/app.ts"
+    "dev": "node --watch --env-file=.env src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,6 @@
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",
     "bcryptjs": "^3.0.3",
-    "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.2.2"
