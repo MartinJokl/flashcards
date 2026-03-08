@@ -9,7 +9,11 @@ import { normalAxios } from './axiosInstance';
 import { getToken } from './tokenManager';
 import UserContext from './contexts/UserContext';
 import type { User } from './types/user';
+import SettingsPage from './pages/settings/SettingsPage';
+import ChangeUsernamePage from './pages/settings/ChangeUsernamePage';
 import './App.css'
+import DeleteAccountPage from './pages/settings/DeleteAccountPage';
+import ChangePasswordPage from './pages/settings/ChangePasswordPage';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -40,11 +44,15 @@ function App() {
   }, []);
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{user, reloadUser}}>
       <Routes>
         <Route index element={<HomePage />} />
-        <Route path='/login' element={<LoginPage reloadUser={reloadUser} />} />
-        <Route path='/register' element={<RegisterPage reloadUser={reloadUser} />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/settings/username' element={<ChangeUsernamePage />} />
+        <Route path='/settings/password' element={<ChangePasswordPage />} />
+        <Route path='/settings/delete' element={<DeleteAccountPage />} />
+        <Route path='/settings' element={<SettingsPage />} />
       </Routes>
     </UserContext.Provider>
   )

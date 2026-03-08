@@ -21,6 +21,7 @@
 
   --link-color: hsl(218, 100%, 65%);
   --error-color: hsl(0, 96%, 67%);
+  --error-muted: hsl(0, 96%, 20%);
   
   background-color: var(--bg-dark);
   color: var(--text)
@@ -42,5 +43,6 @@
 
     --link-color: hsl(218, 100%, 35%);
     --error-color: hsl(0, 89%, 45%);
+    --error-muted: hsl(0, 96%, 83%);
   }
 }

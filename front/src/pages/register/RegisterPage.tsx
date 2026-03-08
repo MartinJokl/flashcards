@@ -1,25 +1,22 @@
-import { useState, type ChangeEvent } from "react";
+import { useContext, useState, type ChangeEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import { normalAxios } from "../../axiosInstance";
 import { saveToken } from "../../tokenManager";
 import Header from "../../components/Header";
+import UserContext from "../../contexts/UserContext";
+import useErrorText from "../../hooks/errorText";
 
 
-function RegisterPage({ reloadUser }: { reloadUser: () => void}) {
+function RegisterPage() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const [errorText, setErrorText] = useState('');
+  const { errorText, showError } = useErrorText();
 
-  function showError(error: string): void {
-    setErrorText(error);
-    setTimeout(() => {
-      setErrorText('');
-    }, 2500)
-  }
+  const { reloadUser } = useContext(UserContext)!;
 
   async function register(): Promise<void> {
     if (password !== password2) {
@@ -32,7 +29,7 @@ function RegisterPage({ reloadUser }: { reloadUser: () => void}) {
     });
     if (response.status === 201){
       saveToken(response.data.token);
-      reloadUser();
+      await reloadUser();
       navigate('/');
     }
     else {
@@ -52,11 +49,11 @@ function RegisterPage({ reloadUser }: { reloadUser: () => void}) {
 
   return (
     <>
-      <title>Jobs app register</title>
+      <title>Flashcards register</title>
 
       <Header />
 
-      <div className="login-container container">
+      <div className="container central-container">
         <h1>Register</h1>
         <div className='input-container'>
           <span>Username: </span>
@@ -70,7 +67,7 @@ function RegisterPage({ reloadUser }: { reloadUser: () => void}) {
           <span>Password again: </span>
           <input type="password" value={password2} onChange={changePassword2Text} />
         </div>
-        <p className={`login-error-text ${errorText === '' ? '' : 'visible'}`}>{errorText || 'Error'}</p>
+        <p className={`error-text ${errorText === '' ? '' : 'visible'}`}>{errorText || 'Error'}</p>
         <button onClick={register} className='login-button primary'>Register</button>
         <Link className="link" to="/login">Have an account already? Log in</Link>
       </div>

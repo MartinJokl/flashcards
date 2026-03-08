@@ -1,15 +1,27 @@
 import { useContext } from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import UserContext from '../contexts/UserContext';
 import './Header.css';
 import SearchIcon from '../assets/search.png'
+import { deleteToken } from '../tokenManager';
 
 function Header() {
-  const user = useContext(UserContext);
+  
+  const navigate = useNavigate();
+  
+  const { reloadUser } = useContext(UserContext)!;
+  
+  const { user } = useContext(UserContext)!;
+  
+  async function logOut(): Promise<void> {
+    deleteToken();
+    await reloadUser();
+    navigate('/');
+  }
 
   return (
     <header>
-      <div id='header-logo'><NavLink className='header-nav-link' to='/'>FC</NavLink></div>
+      <div id='header-logo'><NavLink className='header-nav-link' to='/'>Flashcards</NavLink></div>
       <div id='header-search'>
         <input type="text" id='header-search-input' placeholder='Search' />
         <button id='header-search-button'>
@@ -20,7 +32,7 @@ function Header() {
       ? (
         <>
           <div><NavLink className='header-nav-link' to='/settings'>{user.username}</NavLink></div>
-          <div><NavLink className='header-nav-link' to='/my-sets'>My sets</NavLink></div>
+          <button onClick={logOut} className='primary-button'>Log out</button>
         </>
       ) : (
         <>

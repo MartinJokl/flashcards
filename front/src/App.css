@@ -28,6 +28,14 @@ button:hover {
 .secondary-button:hover {
   background-color: var(--border);
 }
+.red-button {
+  background-color: transparent;
+  color: var(--error-color);
+  border-color: var(--error-color);
+}
+.red-button:hover {
+  background-color: var(--error-muted);
+}
 
 input {
   background-color: var(--bg-light);
@@ -46,6 +54,7 @@ body {
 }
 
 .container {
+  background-color: var(--bg);
   text-align: center;
   padding: 1rem 2rem;
   border-radius: 30px;
@@ -60,4 +69,26 @@ body {
 }
 .link {
   color: var(--link-color);
+}
+
+.central-container {
+  width: min(500px, 90%);
+  margin: auto;
+  margin-top: 20vh;
+  padding-bottom: 1.25rem;
+}
+
+@media screen and (max-height: 900px) {
+  .central-container {
+    margin-top: 5vh;
+  }
+}
+
+.error-text{
+  color: var(--error-color);
+  margin: 10px;
+  visibility: hidden;
+}
+.error-text.visible {
+  visibility: visible;
 }

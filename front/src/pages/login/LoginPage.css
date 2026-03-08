@@ -1,26 +1,4 @@
-.login-container {
-  background-color: var(--bg);
-  width: min(500px, 90%);
-  margin: auto;
-  margin-top: 20vh;
-  padding-bottom: 1.25rem;
-}
-
 .login-button {
   width: 100%;
-  margin-bottom: 20px
-}
-.login-error-text{
-  color: var(--error-color);
-  margin: 10px;
-  visibility: hidden;
-}
-.login-error-text.visible {
-  visibility: visible;
-}
-
-@media screen and (max-height: 900px) {
-  .login-container {
-    margin-top: 5vh;
-  }
+  margin-bottom: 1rem
 }
