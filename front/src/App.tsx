@@ -44,7 +44,7 @@ function App() {
       <Routes>
         <Route index element={<HomePage />} />
         <Route path='/login' element={<LoginPage reloadUser={reloadUser} />} />
-        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/register' element={<RegisterPage reloadUser={reloadUser} />} />
       </Routes>
     </UserContext.Provider>
   )

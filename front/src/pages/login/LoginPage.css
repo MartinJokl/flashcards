@@ -19,7 +19,7 @@
   visibility: visible;
 }
 
-@media screen and (max-height: 650px) {
+@media screen and (max-height: 900px) {
   .login-container {
     margin-top: 5vh;
   }
