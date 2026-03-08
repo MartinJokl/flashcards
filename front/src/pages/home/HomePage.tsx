@@ -38,16 +38,41 @@ function HomePage() {
       })
   }, [page, searchParams])
 
+  function updatePage(newPage: number): void {
+    if (newPage >= 1 && newPage <= pages)
+    setPage(newPage);
+  }
+
   return (
     <>
       <Header />
-      {sets.map((set) => (
-        <p key={set.id}>{set.name}</p>
-      ))}
+      {hits === 0
+      ? (
+        <p>Nothing found</p>
+      ) : (
+        <>
+          {sets.map((set) => (
+            <p key={set.id}>{set.name}</p>
+          ))}
 
-      
+          <button onClick={() => updatePage(page - 1)} className='secondary-button' disabled={page === 1}>{'<'}</button>
+          {[...Array(Math.min(5, pages)).keys()].map(number => {
+            let offset: number = -2;
+            if (page <= 2 || pages <= 5) {
+              offset -= page - 3
+            }
+            else if (page >= pages - 1) {
+              offset += pages - page - 2
+            }
+            const pageNumber = page + number + offset;
 
-      <p>Pages: {pages}</p>
+            return (
+              <button onClick={() => updatePage(pageNumber)} key={number} className={page === pageNumber ? 'primary-button' : 'secondary-button'}>{pageNumber}</button>
+            )
+          })}
+          <button onClick={() => updatePage(page + 1)} className='secondary-button' disabled={page === pages}>{'>'}</button>
+      </>
+      )}
     </>
   )
 }
