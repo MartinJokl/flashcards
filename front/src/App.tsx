@@ -13,7 +13,7 @@ import './App.css'
 function App() {
   const [user, setUser] = useState<string | null>(null);
 
-  const reloadUser = async () => {
+  async function reloadUser(): Promise<void> {
     const token = getToken();
     if (token) {
       const payload = jwtDecode(token) as { userId: string };
@@ -43,7 +43,7 @@ function App() {
     <UserContext.Provider value={user}>
       <Routes>
         <Route index element={<HomePage />} />
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/login' element={<LoginPage reloadUser={reloadUser} />} />
         <Route path='/register' element={<RegisterPage />} />
       </Routes>
     </UserContext.Provider>
