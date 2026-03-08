@@ -19,7 +19,7 @@ function Header() {
       {user 
       ? (
         <>
-          <div><NavLink className='header-nav-link' to='/settings'>{user}</NavLink></div>
+          <div><NavLink className='header-nav-link' to='/settings'>{user.username}</NavLink></div>
           <div><NavLink className='header-nav-link' to='/my-sets'>My sets</NavLink></div>
         </>
       ) : (

@@ -8,10 +8,11 @@ import RegisterPage from './pages/register/RegisterPage';
 import { normalAxios } from './axiosInstance';
 import { getToken } from './tokenManager';
 import UserContext from './contexts/UserContext';
+import type { User } from './types/user';
 import './App.css'
 
 function App() {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   async function reloadUser(): Promise<void> {
     const token = getToken();
@@ -21,8 +22,7 @@ function App() {
 
       const response: AxiosResponse = await normalAxios.get(`/api/accounts/${id}`);
       if (response.status === 200) {
-        console.log(response.data.username);
-        setUser(response.data.username);
+        setUser({ username: response.data.username, id });
       }
       else {
         setUser(null);
