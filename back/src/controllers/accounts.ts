@@ -47,6 +47,9 @@ export async function createAccount(req: Request<{}, {}, UserBody>, res: Respons
     else if (password.length < 8) {
         throw new UnauthorizedError('Password must be at least 8 characters long');
     }
+    else if (username.length < 3) {
+      throw new UnauthorizedError('Username has to be at least 3 characters long')
+    }
     const hashedPassword = await hashPassword(password);
     const user = await User.create({ username, password: hashedPassword });
     const token = user.createJWT();
@@ -59,6 +62,9 @@ export async function updateAccount(req: Request<{}, {}, UserBody>, res: Respons
 
     if (password && password.length < 8) {
         throw new UnauthorizedError('Password must be at least 8 characters long');
+    }
+    else if (username && username.length < 3) {
+      throw new UnauthorizedError('Username has to be at least 3 characters long')
     }
     const update: {
         username?: string,
