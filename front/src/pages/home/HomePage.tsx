@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
 import Header from "../../components/Header";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { normalAxios } from "../../axiosInstance";
 
 type Set = {
@@ -11,7 +11,7 @@ type Set = {
 }
 
 function HomePage() {
-  const limit = 5;
+  const limit = 2;
 
   const [searchParams] = useSearchParams();
   
@@ -19,9 +19,10 @@ function HomePage() {
   const [hits, sethits] = useState(0);
 
   const pages = Math.ceil(hits / limit);
-  
-  const fetchSets = useCallback(async (additionalParams: string[]): Promise<void> => {
-    const params = [...additionalParams, `limit=${limit}`];
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const params = ['getCount=true', `limit=${limit}`, `page=${page}`];
     searchParams.forEach((value, key) => {
       params.push(`${key}=${value}`);
     });
@@ -35,12 +36,7 @@ function HomePage() {
           setSets(response.data.sets)
         }
       })
-  }, [searchParams]);
-
-  useEffect(() => {
-    const params: string[] = ['getCount=true']
-    fetchSets(params);
-  }, [fetchSets])
+  }, [page, searchParams])
 
   return (
     <>
@@ -48,6 +44,9 @@ function HomePage() {
       {sets.map((set) => (
         <p key={set.id}>{set.name}</p>
       ))}
+
+      
+
       <p>Pages: {pages}</p>
     </>
   )
