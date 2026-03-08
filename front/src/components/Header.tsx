@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link } from 'react-router';
 import UserContext from '../contexts/UserContext';
 import './Header.css';
 import SearchIcon from '../assets/search.png'
@@ -23,8 +24,8 @@ function Header() {
         </>
       ) : (
         <>
-          <button>Log in</button>
-          <button>Register</button>
+          <Link to='/login'><button className='primary-button' id='header-login-button'>Log in</button></Link>
+          <Link to='/login'><button className='secondary-button' id='header-register-button'>Register</button></Link>
         </>
       )}
     </header>

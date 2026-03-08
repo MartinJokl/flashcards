@@ -28,6 +28,7 @@ header {
 }
 #header-search-icon {
   height: 70%;
+  color: var(--color);
 }
 #header-search-input {
   font-size: 1.5rem;
