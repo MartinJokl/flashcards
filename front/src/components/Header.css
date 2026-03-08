@@ -34,3 +34,11 @@ header {
   font-size: 1.5rem;
   padding: 0.5rem 0.75rem;
 }
+
+.header-nav-link {
+  color: var(--text);
+  text-decoration: none;
+}
+.header-nav-link.active {
+  text-decoration: underline;
+}

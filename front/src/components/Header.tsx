@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import UserContext from '../contexts/UserContext';
 import './Header.css';
 import SearchIcon from '../assets/search.png'
@@ -9,7 +9,7 @@ function Header() {
 
   return (
     <header>
-      <div id='header-logo'>FC</div>
+      <div id='header-logo'><NavLink className='header-nav-link' to='/'>FC</NavLink></div>
       <div id='header-search'>
         <input type="text" id='header-search-input' placeholder='Search' />
         <button id='header-search-button'>
@@ -19,8 +19,8 @@ function Header() {
       {user 
       ? (
         <>
-          <div>{user}</div>
-          <div>My sets</div>
+          <div><NavLink className='header-nav-link' to='/settings'>{user}</NavLink></div>
+          <div><NavLink className='header-nav-link' to='/my-sets'>My sets</NavLink></div>
         </>
       ) : (
         <>
