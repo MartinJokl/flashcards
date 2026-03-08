@@ -6,9 +6,9 @@ function Header() {
     <header>
       <div id='header-logo'>FC</div>
       <div id='header-search'>
-        <input type="text" />
-        <button>
-          <img src={SearchIcon} alt="search icon" />
+        <input type="text" id='header-search-input' placeholder='Search' />
+        <button id='header-search-button'>
+          <img src={SearchIcon} alt="search icon" id='header-search-icon' />
         </button>
       </div>
       <div>John</div>

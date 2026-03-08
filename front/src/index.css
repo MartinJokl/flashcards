@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 
@@ -15,16 +19,6 @@
   background-color: var(--bg-dark);
   color: var(--text)
 }
-
-button {
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  border-top: 1px solid var(--highlight);
-  background: var(--gradient);
-  padding: 200px;
-  color: var(--text)
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     --bg-dark: hsl(0, 0%, 90%);
@@ -38,4 +32,25 @@ button {
     --highlight: hsl(0, 0%, 75%);
     /*--gradient: linear-gradient(0deg, var(--bg) 95%, var(--bg-light));*/
   }
+}
+
+button {
+  border: 1px solid var(--border);
+  border-top: 1px solid var(--highlight);
+  background-color: var(--bg-light);
+  color: var(--text);
+  cursor: pointer;
+}
+
+input {
+  background-color: var(--bg-light);
+  border: none;
+  color: var(--text)
+}
+input:focus {
+  outline: none;
+}
+
+body {
+  margin: 0;
 }
