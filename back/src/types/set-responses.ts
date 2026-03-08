@@ -15,5 +15,6 @@ export interface SetsResponse {
         description: string | null | undefined,
         id: string,
         likes: number
-    }[]
+    }[],
+    hits?: number
 }

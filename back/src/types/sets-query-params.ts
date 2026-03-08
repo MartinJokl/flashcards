@@ -3,6 +3,7 @@ export interface SetQueryParams {
     sort?: string,
     likerId?: string,
     createdBy?: string,
+    getCount?: string,
     page?: string,
     limit?: string
 }

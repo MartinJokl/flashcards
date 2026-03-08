@@ -24,7 +24,7 @@ export async function getSet(req: Request<IdParams>, res: Response<SetResponse>)
 }
 
 export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: Response<SetsResponse>) {
-    const {name, sort, likerId, createdBy} = req.query;
+    const {name, sort, likerId, createdBy, getCount} = req.query;
     const queryObject: {
         name?: object,
         likers?: mongoose.Types.ObjectId,
@@ -49,6 +49,8 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
         result = result.sort('-likes name');
     }
 
+    
+
     const limit = Number(req.query.limit ?? 10);
     const page = Number(req.query.page ?? 1);
     const skip = (page - 1) * limit;
@@ -62,9 +64,22 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
             id: String(set._id),
             likes: set.likes,
         }
-    })
+    });
+    const returnObject: { 
+      hits?: number, 
+      sets: {
+        name: string;
+        description: string | null | undefined;
+        id: string;
+        likes: number;
+      }[] 
+    } = { sets: returnSets }
+
+    if (getCount && getCount === 'true') {
+      returnObject.hits = await Set.countDocuments(queryObject);
+    }
      
-    res.status(200).json({ sets: returnSets })
+    res.status(200).json(returnObject)
 }
 
 export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdResponse>) {
