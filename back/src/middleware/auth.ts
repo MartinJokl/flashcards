@@ -1,12 +1,16 @@
 import type { NextFunction, Request, Response } from "express-serve-static-core";
 import UnauthorizedError from "../errors/unauthorized.ts";
 
-import jwt from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 import User from "../models/User.ts";
+
+interface UserIDJwtPayload extends JwtPayload {
+    userId: string
+}
 
 async function AuthMiddleware(req: Request, _res: Response, next: NextFunction) {
     try {
-        const authHeader = req.headers.authorization;
+        const authHeader: string | undefined = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             throw new Error();
         }
@@ -14,8 +18,8 @@ async function AuthMiddleware(req: Request, _res: Response, next: NextFunction) 
         if (!token) {
             throw new Error();
         }
-        const payload = jwt.verify(token, process.env.JWT_SECRET!) as jwt.UserIDJwtPayload;
-        const userId = payload.userId;
+        const payload: UserIDJwtPayload = jwt.verify(token, process.env.JWT_SECRET!) as UserIDJwtPayload;
+        const userId: string = payload.userId;
 
         const user = await User.findById(userId);
         if (!user) {

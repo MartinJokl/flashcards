@@ -12,12 +12,12 @@ import type { MessageResponse } from '../types/message-response.ts';
 import mongoose from 'mongoose';
 
 export async function getSet(req: Request<IdParams>, res: Response<SetResponse>) {
-    const setId = req.params.id;
+    const setId: string = req.params.id;
     const set = await Set.findById(setId);
     if (!set) {
         throw new NotFoundError('Set does not exist')
     }
-    const flashcards = set.flashcards.map(card => {
+    const flashcards: Flashcard[] = set.flashcards.map(card => {
         return { question: card.question ?? 'question', answer: card.answer ?? 'answer' }
     });
     res.status(200).json({ name: set.name, description: set.description, id: String(set._id), likes: set.likes, createdBy: String(set.createdBy), flashcards })
@@ -51,9 +51,9 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
 
     
 
-    const limit = Number(req.query.limit ?? 10);
-    const page = Number(req.query.page ?? 1);
-    const skip = (page - 1) * limit;
+    const limit: number = Number(req.query.limit ?? 10);
+    const page: number = Number(req.query.page ?? 1);
+    const skip: number = (page - 1) * limit;
     result = result.skip(skip).limit(limit);
 
     const sets = await result.select('name description _id likes');
@@ -83,7 +83,7 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
 }
 
 export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdResponse>) {
-    const user = req.user!;
+    const user: UserReqType = req.user!;
     if (!req.body || !req.body.flashcards || !req.body.name) {
         throw new BadRequestError('You must provide flashcards and a name');
     }
@@ -101,8 +101,8 @@ export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdR
 }
 
 export async function updateSet(req: Request<IdParams, {}, SetBody>, res: Response<MessageResponse>) {
-    const user = req.user!;
-    const setId = req.params.id;
+    const user: UserReqType = req.user!;
+    const setId: string = req.params.id;
     
     const set = await Set.findOneAndUpdate({ _id: setId, createdBy: user.id }, req.body, { runValidators: true });
     if (!set) {
@@ -112,16 +112,16 @@ export async function updateSet(req: Request<IdParams, {}, SetBody>, res: Respon
 }
 
 export async function deleteSet(req: Request<IdParams>, res: Response<MessageResponse>) {
-    const user = req.user!;
-    const setId = req.params.id;
+    const user: UserReqType = req.user!;
+    const setId: string = req.params.id;
     await Set.findOneAndDelete({ _id: setId, createdBy: user.id });
     res.status(200).json({message: 'Set deleted'})
 }
 
 export async function likeSet(req: Request<IdParams>, res: Response<MessageResponse>) {
-    const user = req.user!;
-    const userId = new mongoose.Types.ObjectId(user.id)
-    const setId = req.params.id;
+    const user: UserReqType = req.user!;
+    const userId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(user.id)
+    const setId: string = req.params.id;
     const set = await Set.findByIdAndUpdate(setId, { 
         $addToSet: { likers: userId }
     }, { new: true });
@@ -138,9 +138,9 @@ export async function likeSet(req: Request<IdParams>, res: Response<MessageRespo
 }
 
 export async function unlikeSet(req: Request<IdParams>, res: Response<MessageResponse>) {
-    const user = req.user!;
-    const userId = new mongoose.Types.ObjectId(user.id)
-    const setId = req.params.id;
+    const user: UserReqType = req.user!;
+    const userId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(user.id)
+    const setId: string = req.params.id;
     const set = await Set.findByIdAndUpdate(setId, { 
         $pull: { likers: userId }
     }, { new: true });

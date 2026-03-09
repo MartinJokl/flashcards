@@ -1,15 +1,4 @@
 import mongoose from "mongoose";
-/*
-const flashcardSchema = new mongoose.Schema({
-    question: {
-        type: String,
-        required: [true, 'You have to provide a question']
-    },
-    answer: {
-        type: String,
-        required: [true, 'You have to provide an answer']
-    }
-});*/
 
 const setSchema = new mongoose.Schema({
     name: {

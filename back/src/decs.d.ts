@@ -1,10 +1,10 @@
-type User = {
+type UserReqType = {
     id: string;
     username: string;
 };
 
 declare namespace Express {
     interface Request {
-        user?: User;
+        user?: UserReqType;
     }
 }

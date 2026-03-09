@@ -8,8 +8,8 @@ import type { IdParams } from "../types/id-params.ts";
 import type { UserResponse } from "../types/user-response.ts";
 import bcrypt from "bcryptjs";
 
-async function hashPassword(password:string) {
-    const salt = await bcrypt.genSalt();
+async function hashPassword(password: string): Promise<string> {
+    const salt: string = await bcrypt.genSalt();
     return await bcrypt.hash(password, salt);
 }
 
@@ -26,12 +26,12 @@ export async function login(req: Request<{}, {}, UserBody>, res: Response<Messag
     if (!passwordCorrect) {
         throw new UnauthorizedError('Wrong password or username');
     }
-    const token = user.createJWT();
+    const token: string = user.createJWT();
     res.status(200).json({ token });
 }
 
 export async function getAccount(req: Request<IdParams>, res: Response<UserResponse>) {
-    const userId = req.params.id;
+    const userId: string = req.params.id;
     const user = await User.findById(userId);
     if (!user) {
         throw new NotFoundError('User does not exist')
@@ -50,14 +50,14 @@ export async function createAccount(req: Request<{}, {}, UserBody>, res: Respons
     else if (username.length < 3) {
       throw new UnauthorizedError('Username has to be at least 3 characters long')
     }
-    const hashedPassword = await hashPassword(password);
+    const hashedPassword: string = await hashPassword(password);
     const user = await User.create({ username, password: hashedPassword });
-    const token = user.createJWT();
+    const token: string = user.createJWT();
     res.status(201).json({ token })
 }
 
 export async function updateAccount(req: Request<{}, {}, UserBody>, res: Response<MessageResponse>) {
-    const user = req.user!;
+    const user: UserReqType = req.user!;
     const { username, password } = req.body;
 
     if (password && password.length < 8) {
@@ -66,15 +66,12 @@ export async function updateAccount(req: Request<{}, {}, UserBody>, res: Respons
     else if (username && username.length < 3) {
       throw new UnauthorizedError('Username has to be at least 3 characters long')
     }
-    const update: {
-        username?: string,
-        password?: string
-    } = {};
+    const update: UserBody = {};
     if (username) {
         update.username = username;
     }
     if (password) {
-        const hashedPassword = await hashPassword(password);
+        const hashedPassword: string = await hashPassword(password);
         update.password = hashedPassword;
     }
     
@@ -84,7 +81,7 @@ export async function updateAccount(req: Request<{}, {}, UserBody>, res: Respons
 }
 
 export async function deleteAccount(req: Request, res: Response<MessageResponse>) {
-    const user = req.user!;
+    const user: UserReqType = req.user!;
     
     await User.findByIdAndDelete(user.id);
 

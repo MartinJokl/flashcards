@@ -16,10 +16,10 @@ const userSchema = new mongoose.Schema({
     }
 }, {
     methods: {
-        async checkPassword(candidatePassword: string) {
+        async checkPassword(candidatePassword: string): Promise<boolean> {
             return await bcrypt.compare(candidatePassword, this.password);
         },
-        createJWT() {
+        createJWT(): string {
             const lifetime = '30d';
             return jwt.sign({ userId: this._id}, process.env.JWT_SECRET!, {
                 expiresIn: lifetime

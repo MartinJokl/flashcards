@@ -1,8 +1,8 @@
-import express from 'express';
+import express, { Router } from 'express';
 import { login, getAccount, createAccount, updateAccount, deleteAccount } from '../controllers/accounts.ts'
 import AuthMiddleware from '../middleware/auth.ts';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.post('/login', login);
 router.route('/').post(createAccount).patch(AuthMiddleware, updateAccount).delete(AuthMiddleware, deleteAccount);
