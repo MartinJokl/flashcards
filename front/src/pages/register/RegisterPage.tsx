@@ -5,6 +5,8 @@ import { saveToken } from "../../tokenManager";
 import Header from "../../components/Header";
 import UserContext from "../../contexts/UserContext";
 import useErrorText from "../../hooks/errorText";
+import type { AxiosResponse } from "axios";
+import type { MessageResponse, TokenResponse } from "../../types/responses";
 
 
 function RegisterPage() {
@@ -23,7 +25,7 @@ function RegisterPage() {
       showError('Passwords do not match')
       return;
     }
-    const response = await normalAxios.post('/api/accounts', {
+    const response: AxiosResponse<TokenResponse & MessageResponse> = await normalAxios.post('/api/accounts', {
       username,
       password
     });

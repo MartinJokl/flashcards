@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import { Link, useNavigate } from 'react-router';
 import UserContext from "../../contexts/UserContext";
 import { authedAxios } from "../../axiosInstance";
+import type { AxiosResponse } from "axios";
+import type { MessageResponse } from "../../types/responses";
 
 function ChangeUsernamePage() {
   const navigate = useNavigate();
@@ -10,7 +12,7 @@ function ChangeUsernamePage() {
   const { reloadUser } = useContext(UserContext)!;
 
   async function deleteAccount(): Promise<void> {
-    const response = await authedAxios.delete('/api/accounts');
+    const response: AxiosResponse<MessageResponse> = await authedAxios.delete('/api/accounts');
 
     if (response.status === 200){
       await reloadUser();

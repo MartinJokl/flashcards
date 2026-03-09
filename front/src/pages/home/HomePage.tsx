@@ -2,33 +2,28 @@ import { useSearchParams } from "react-router";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import { normalAxios } from "../../axiosInstance";
-
-type Set = {
-  name: string;
-  description: string | null | undefined;
-  id: string;
-  likes: number;
-}
+import type { AxiosResponse } from "axios";
+import type { Set } from '../../types/set';
+import type { SetsResponse } from '../../types/responses';
 
 function HomePage() {
-  const limit = 2;
+  const limit: number = 2;
 
   const [searchParams] = useSearchParams();
   
   const [sets, setSets] = useState<Set[]>([]);
   const [hits, sethits] = useState(0);
 
-  const pages = Math.ceil(hits / limit);
+  const pages: number = Math.ceil(hits / limit);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const params = ['getCount=true', `limit=${limit}`, `page=${page}`];
-    searchParams.forEach((value, key) => {
+    const params: string[] = ['getCount=true', `limit=${limit}`, `page=${page}`];
+    searchParams.forEach((value: string, key: string) => {
       params.push(`${key}=${value}`);
     });
     normalAxios.get(`/api/sets?${params.join('&')}`)
-      .then((response) => {
-        console.log(response);
+      .then((response: AxiosResponse<SetsResponse>) => {
         if (response.status === 200) {
           if (response.data.hits) {
             sethits(response.data.hits)

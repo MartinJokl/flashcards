@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router';
 import UserContext from "../../contexts/UserContext";
 import { authedAxios } from "../../axiosInstance";
 import useErrorText from "../../hooks/errorText";
+import type { AxiosResponse } from "axios";
+import type { MessageResponse } from "../../types/responses";
 
 function ChangePasswordPage() {
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ function ChangePasswordPage() {
       showError('Passwords do not match')
       return;
     }
-    const response = await authedAxios.patch('/api/accounts', { password })
+    const response: AxiosResponse<MessageResponse> = await authedAxios.patch('/api/accounts', { password })
 
     if (response.status === 200){
       await reloadUser();

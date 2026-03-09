@@ -6,6 +6,8 @@ import Header from '../../components/Header';
 import UserContext from '../../contexts/UserContext';
 import useErrorText from '../../hooks/errorText';
 import './LoginPage.css';
+import type { AxiosResponse } from 'axios';
+import type { MessageResponse, TokenResponse } from '../../types/responses';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ function LoginPage() {
   const { reloadUser } = useContext(UserContext)!;
 
   async function login(): Promise<void> {
-    const response = await normalAxios.post('/api/accounts/login', {
+    const response: AxiosResponse<TokenResponse & MessageResponse> = await normalAxios.post('/api/accounts/login', {
       username,
       password
     });

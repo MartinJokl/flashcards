@@ -14,6 +14,7 @@ import ChangeUsernamePage from './pages/settings/ChangeUsernamePage';
 import './App.css'
 import DeleteAccountPage from './pages/settings/DeleteAccountPage';
 import ChangePasswordPage from './pages/settings/ChangePasswordPage';
+import type { UserResponse } from './types/responses';
 
 interface userIdJwtPayload extends JwtPayload {
   userId: string
@@ -23,12 +24,12 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
 
   async function reloadUser(): Promise<void> {
-    const token = getToken();
+    const token: string | null = getToken();
     if (token) {
       const payload = jwtDecode(token) as userIdJwtPayload;
-      const id = payload.userId;
+      const id: string = payload.userId;
 
-      const response: AxiosResponse = await normalAxios.get(`/api/accounts/${id}`);
+      const response: AxiosResponse<UserResponse> = await normalAxios.get(`/api/accounts/${id}`);
       if (response.status === 200) {
         setUser({ username: response.data.username, id });
       }

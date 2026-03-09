@@ -1,17 +1,17 @@
-import axios, { type InternalAxiosRequestConfig } from 'axios';
+import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 import { getToken } from './tokenManager';
 
-export const authedAxios = axios.create({
+export const authedAxios: AxiosInstance = axios.create({
   validateStatus: () => true
 });
 
 authedAxios.interceptors.request.use((config: InternalAxiosRequestConfig<unknown>) => {
-  const token = getToken();
+  const token: string | null = getToken();
   config.headers.Authorization = `Bearer ${token}`;
      
   return config;
 })
 
-export const normalAxios = axios.create({
+export const normalAxios: AxiosInstance = axios.create({
   validateStatus: () => true
 });

@@ -4,6 +4,7 @@ import UserContext from '../contexts/UserContext';
 import './Header.css';
 import SearchIcon from '../assets/search.png'
 import { deleteToken } from '../tokenManager';
+import type { User } from '../types/user';
 
 function Header() {
   
@@ -11,7 +12,7 @@ function Header() {
   
   const { reloadUser } = useContext(UserContext)!;
   
-  const { user } = useContext(UserContext)!;
+  const user: User | null = useContext(UserContext)!.user;
   
   async function logOut(): Promise<void> {
     deleteToken();
