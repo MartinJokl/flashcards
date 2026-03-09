@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
 import type { AxiosResponse } from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode, type JwtPayload } from 'jwt-decode';
 import HomePage from './pages/home/HomePage';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
@@ -15,13 +15,17 @@ import './App.css'
 import DeleteAccountPage from './pages/settings/DeleteAccountPage';
 import ChangePasswordPage from './pages/settings/ChangePasswordPage';
 
+interface userIdJwtPayload extends JwtPayload {
+  userId: string
+}
+
 function App() {
   const [user, setUser] = useState<User | null>(null);
 
   async function reloadUser(): Promise<void> {
     const token = getToken();
     if (token) {
-      const payload = jwtDecode(token) as { userId: string };
+      const payload = jwtDecode(token) as userIdJwtPayload;
       const id = payload.userId;
 
       const response: AxiosResponse = await normalAxios.get(`/api/accounts/${id}`);
