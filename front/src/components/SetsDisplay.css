@@ -1,4 +1,13 @@
 .page-button-container {
-  width: max-content;
-  margin: auto;
+  text-align: center;
+  margin-top: auto;
+}
+.page-button-container > button {
+  margin: 1rem 0.5rem;
+}
+.sets-display-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100vh - var(--header-height));
 }

@@ -10,20 +10,27 @@ import './SetsDisplay.css'
 function SetsDisplay() {
   const limit: number = 2;
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   
   const [sets, setSets] = useState<Set[]>([]);
   const [hits, sethits] = useState(0);
 
   const pages: number = Math.ceil(hits / limit);
-  const [page, setPage] = useState(1);
+  const page: number = Number(searchParams.get('page') ?? 1)
+  if (page > pages) {
+    updatePage(pages);
+  }
 
   useEffect(() => {
-    const params: string[] = ['getCount=true', `limit=${limit}`, `page=${page}`];
+    const params = new URLSearchParams([['getCount', 'true'], ['limit', String(limit)]])
     searchParams.forEach((value: string, key: string) => {
-      params.push(`${key}=${value}`);
+      params.append(key, value);
     });
-    normalAxios.get(`/api/sets?${params.join('&')}`)
+    if (!params.get('page')) {
+      params.append('page', '1');
+    }
+
+    normalAxios.get(`/api/sets?${params.toString()}`)
       .then((response: AxiosResponse<SetsResponse>) => {
         if (response.status === 200) {
           if (response.data.hits) {
@@ -36,7 +43,10 @@ function SetsDisplay() {
 
   function updatePage(newPage: number): void {
     if (newPage >= 1 && newPage <= pages) {
-      setPage(newPage);
+      setSearchParams(previousParams => {
+        previousParams.set('page', String(newPage))
+        return previousParams;
+      })
     }
   }
 
@@ -46,7 +56,7 @@ function SetsDisplay() {
       ? (
         <p>Nothing found</p>
       ) : (
-        <>
+        <div className="sets-display-container">
           {sets.map((set) => (
             <SetDisplay set={set} key={set.id} />
           ))}
@@ -68,7 +78,7 @@ function SetsDisplay() {
             })}
             <button onClick={() => updatePage(page + 1)} className='secondary-button' disabled={page === pages}>{'>'}</button>
           </div>
-      </>
+      </div>
       )}
     </>
   )
