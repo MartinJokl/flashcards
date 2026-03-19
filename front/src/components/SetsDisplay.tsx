@@ -4,6 +4,8 @@ import { normalAxios } from "../axiosInstance";
 import type { AxiosResponse } from "axios";
 import type { Set } from '../types/set';
 import type { SetsResponse } from "../types/responses";
+import SetDisplay from "./SetDisplay";
+import './SetsDisplay.css'
 
 function SetsDisplay() {
   const limit: number = 2;
@@ -46,25 +48,26 @@ function SetsDisplay() {
       ) : (
         <>
           {sets.map((set) => (
-            <p key={set.id}>{set.name}</p>
+            <SetDisplay set={set} key={set.id} />
           ))}
+          <div className="page-button-container">
+            <button onClick={() => updatePage(page - 1)} className='secondary-button' disabled={page === 1}>{'<'}</button>
+            {[...Array(Math.min(5, pages)).keys()].map(number => {
+              let offset: number = -2;
+              if (page <= 2 || pages <= 5) {
+                offset -= page - 3
+              }
+              else if (page >= pages - 1) {
+                offset += pages - page - 2
+              }
+              const pageNumber = page + number + offset;
 
-          <button onClick={() => updatePage(page - 1)} className='secondary-button' disabled={page === 1}>{'<'}</button>
-          {[...Array(Math.min(5, pages)).keys()].map(number => {
-            let offset: number = -2;
-            if (page <= 2 || pages <= 5) {
-              offset -= page - 3
-            }
-            else if (page >= pages - 1) {
-              offset += pages - page - 2
-            }
-            const pageNumber = page + number + offset;
-
-            return (
-              <button onClick={() => updatePage(pageNumber)} key={number} className={page === pageNumber ? 'primary-button' : 'secondary-button'}>{pageNumber}</button>
-            )
-          })}
-          <button onClick={() => updatePage(page + 1)} className='secondary-button' disabled={page === pages}>{'>'}</button>
+              return (
+                <button onClick={() => updatePage(pageNumber)} key={number} className={page === pageNumber ? 'primary-button' : 'secondary-button'}>{pageNumber}</button>
+              )
+            })}
+            <button onClick={() => updatePage(page + 1)} className='secondary-button' disabled={page === pages}>{'>'}</button>
+          </div>
       </>
       )}
     </>

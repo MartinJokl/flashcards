@@ -1,0 +1,8 @@
+.set-display {
+  display: block;
+  margin: 1rem auto;
+  width: min(50rem, 90vw);
+}
+.set-display-name {
+  margin: 0.5rem;
+}
