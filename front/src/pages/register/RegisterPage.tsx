@@ -4,7 +4,7 @@ import { normalAxios } from "../../axiosInstance";
 import { saveToken } from "../../tokenManager";
 import Header from "../../components/Header";
 import UserContext from "../../contexts/UserContext";
-import useErrorText from "../../hooks/errorText";
+import useFeedbackText from "../../hooks/feedbackText";
 import type { AxiosResponse } from "axios";
 import type { MessageResponse, TokenResponse } from "../../types/responses";
 
@@ -16,7 +16,7 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const { errorText, showError } = useErrorText();
+  const [errorText, showError] = useFeedbackText();
 
   const { reloadUser } = useContext(UserContext)!;
 
@@ -69,7 +69,7 @@ function RegisterPage() {
           <span>Password again: </span>
           <input type="password" value={password2} onChange={changePassword2Text} />
         </div>
-        <p className={`error-text ${errorText === '' ? '' : 'visible'}`}>{errorText || 'Error'}</p>
+        <p className={`feedback-text error-text ${errorText === '' ? '' : 'visible'}`}>{errorText || 'Error'}</p>
         <button onClick={register} className='login-button primary'>Register</button>
         <Link className="link" to="/login">Have an account already? Log in</Link>
       </div>

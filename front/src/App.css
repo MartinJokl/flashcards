@@ -93,11 +93,13 @@ body {
   }
 }
 
-.error-text{
+.error-text {
   color: var(--error-color);
+}
+.feedback-text{
   margin: 10px;
   visibility: hidden;
 }
-.error-text.visible {
+.feedback-text.visible {
   visibility: visible;
 }

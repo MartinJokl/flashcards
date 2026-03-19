@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import { Link, useNavigate } from 'react-router';
 import UserContext from "../../contexts/UserContext";
 import { authedAxios } from "../../axiosInstance";
-import useErrorText from "../../hooks/errorText";
+import useFeedbackText from "../../hooks/feedbackText";
 import type { AxiosResponse } from "axios";
 import type { MessageResponse } from "../../types/responses";
 
@@ -12,7 +12,7 @@ function ChangeUsernamePage() {
 
   const [username, setUsername] = useState('');
 
-  const { errorText, showError } = useErrorText();
+  const [errorText, showError] = useFeedbackText();
 
   const { reloadUser } = useContext(UserContext)!;
 
@@ -50,7 +50,7 @@ function ChangeUsernamePage() {
           <input type="text" value={username} onChange={changeUsernameText} />
         </div>
 
-        <p className={`error-text ${errorText === '' ? '' : 'visible'}`}>{errorText || 'Error'}</p>
+        <p className={`feedback-text error-text ${errorText === '' ? '' : 'visible'}`}>{errorText || 'Error'}</p>
 
         <div className="settings-change-buttons-container">
           <Link to='/settings'><button className='secondary-button'>Back</button></Link>
