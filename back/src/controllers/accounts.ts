@@ -7,6 +7,7 @@ import type { TokenResponse } from "../types/token-response.ts";
 import type { IdParams } from "../types/id-params.ts";
 import type { UserResponse } from "../types/user-response.ts";
 import bcrypt from "bcryptjs";
+import Set from "../models/Set.ts";
 
 async function hashPassword(password: string): Promise<string> {
     const salt: string = await bcrypt.genSalt();
@@ -76,6 +77,10 @@ export async function updateAccount(req: Request<{}, {}, UserBody>, res: Respons
     }
     
     await User.findByIdAndUpdate(user.id, update, { runValidators: true });
+
+    if (username) {
+        await Set.updateMany({ createdBy: user.id }, { creatorName: username })
+    }
 
     res.status(200).json({ message: 'User updated' });
 }

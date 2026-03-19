@@ -20,7 +20,16 @@ export async function getSet(req: Request<IdParams>, res: Response<SetResponse>)
     const flashcards: Flashcard[] = set.flashcards.map(card => {
         return { question: card.question ?? 'question', answer: card.answer ?? 'answer' }
     });
-    res.status(200).json({ name: set.name, description: set.description, id: String(set._id), likes: set.likes, createdBy: String(set.createdBy), flashcards })
+    res.status(200).json({
+        name: set.name, 
+        description: 
+        set.description, 
+        id: String(set._id), 
+        likes: set.likes, 
+        createdBy: String(set.createdBy), 
+        creatorName: set.creatorName, 
+        flashcards 
+    })
 }
 
 export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: Response<SetsResponse>) {
@@ -49,18 +58,17 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
         result = result.sort('-likes name');
     }
 
-    
-
     const limit: number = Number(req.query.limit ?? 10);
     const page: number = Number(req.query.page ?? 1);
     const skip: number = (page - 1) * limit;
     result = result.skip(skip).limit(limit);
 
-    const sets = await result.select('name description _id likes');
+    const sets = await result.select('name description creatorName _id likes');
     const returnSets = sets.map(set => {
         return {
             name: set.name,
             description: set.description,
+            creatorName: set.creatorName,
             id: String(set._id),
             likes: set.likes,
         }
@@ -68,10 +76,11 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
     const returnObject: { 
       hits?: number, 
       sets: {
-        name: string;
-        description: string | null | undefined;
-        id: string;
-        likes: number;
+        name: string,
+        description: string | null | undefined,
+        creatorName: string,
+        id: string,
+        likes: number
       }[] 
     } = { sets: returnSets }
 
@@ -91,8 +100,9 @@ export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdR
         name: string,
         description?: string,
         createdBy: string,
+        creatorName: string,
         flashcards: Flashcard[]
-    } = {name: req.body.name, createdBy: user.id,  flashcards: req.body.flashcards };
+    } = {name: req.body.name, createdBy: user.id, creatorName: user.username, flashcards: req.body.flashcards };
     if (req.body.description) {
         creationSet.description = req.body.description;
     }

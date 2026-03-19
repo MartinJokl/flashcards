@@ -17,6 +17,10 @@ const setSchema = new mongoose.Schema({
         required: [true, 'You have to provide a user'],
         immutable: true
     },
+    creatorName: {
+      type: String,
+      required: [true, 'You have to provide a user']
+    },
     flashcards: {
         type: [{
             question: String,
