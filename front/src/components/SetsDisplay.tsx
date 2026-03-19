@@ -5,7 +5,7 @@ import type { AxiosResponse } from "axios";
 import type { Set } from '../types/set';
 import type { SetsResponse } from "../types/responses";
 
-function Sets() {
+function SetsDisplay() {
   const limit: number = 2;
 
   const [searchParams] = useSearchParams();
@@ -71,4 +71,4 @@ function Sets() {
   )
 }
 
-export default Sets;
+export default SetsDisplay;

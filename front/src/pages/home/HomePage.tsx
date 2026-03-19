@@ -1,11 +1,11 @@
 import Header from "../../components/Header";
-import Sets from "../../components/Sets";
+import SetsDisplay from "../../components/SetsDisplay";
 
 function HomePage() {
   return (
     <>
       <Header />
-      <Sets />
+      <SetsDisplay />
     </>
   )
 }
