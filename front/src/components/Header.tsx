@@ -1,5 +1,5 @@
 import { useContext, useState, type ChangeEvent, type KeyboardEvent } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router';
+import { Link, NavLink, useNavigate, useSearchParams } from 'react-router';
 import UserContext from '../contexts/UserContext';
 import './Header.css';
 import SearchIcon from '../assets/search.png'
@@ -7,14 +7,15 @@ import { deleteToken } from '../tokenManager';
 import type { User } from '../types/user';
 
 function Header() {
-  
+  const [searchParams] = useSearchParams();
+  const initialSearchText = searchParams.get('name') ?? '';
   const navigate = useNavigate();
   
   const reloadUser: () => Promise<void> = useContext(UserContext)!.reloadUser;
   const user: User | null = useContext(UserContext)!.user;
 
-  const [searchInput, setSearchInput] = useState('');
-  
+  const [searchInput, setSearchInput] = useState(initialSearchText);
+
   async function logOut(): Promise<void> {
     deleteToken();
     await reloadUser();
