@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
 import UserContext from '../contexts/UserContext';
 import './Header.css';
@@ -10,9 +10,10 @@ function Header() {
   
   const navigate = useNavigate();
   
-  const { reloadUser } = useContext(UserContext)!;
-  
+  const reloadUser: () => Promise<void> = useContext(UserContext)!.reloadUser;
   const user: User | null = useContext(UserContext)!.user;
+
+  const [searchInput, setSearchInput] = useState('');
   
   async function logOut(): Promise<void> {
     deleteToken();
@@ -20,12 +21,32 @@ function Header() {
     navigate('/');
   }
 
+  function search(): void {
+    navigate(`/?name=${searchInput}`);
+  }
+
+  function updateSearchInput(event: ChangeEvent<HTMLInputElement, HTMLInputElement>): void {
+    setSearchInput(event.target.value);
+  }
+
+  function searchBarKeyPressed(event: KeyboardEvent<HTMLInputElement>){
+    if (event.key === 'Enter'){
+      search();
+    }
+  }
+
   return (
     <header>
       <div id='header-logo'><NavLink className='header-nav-link' to='/'>Flashcards</NavLink></div>
       <div id='header-search'>
-        <input type="text" id='header-search-input' placeholder='Search' />
-        <button id='header-search-button'>
+        <input 
+          type="text" 
+          id='header-search-input' 
+          placeholder='Search' 
+          value={searchInput} 
+          onChange={updateSearchInput}
+          onKeyDown={searchBarKeyPressed} />
+        <button id='header-search-button' onClick={search}>
           <img src={SearchIcon} alt="search icon" id='header-search-icon' />
         </button>
       </div>
