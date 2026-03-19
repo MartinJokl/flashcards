@@ -1,8 +1,19 @@
 .set-display {
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1rem;
   margin: 1rem auto;
   width: min(50rem, 90vw);
+  height: 10rem;
 }
 .set-display-name {
   margin: 0.5rem;
+}
+.set-display-creator-likes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.set-display-name-description-container {
+  overflow: hidden;
 }
