@@ -54,7 +54,7 @@ function SetsDisplay() {
     <>
       {hits === 0
       ? (
-        <p>Nothing found</p>
+        <p className="sets-display-nothing">Nothing found</p>
       ) : (
         <div className="sets-display-container">
           {sets.map((set) => (

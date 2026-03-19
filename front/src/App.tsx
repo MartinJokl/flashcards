@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
-import type { AxiosResponse } from 'axios';
 import { jwtDecode, type JwtPayload } from 'jwt-decode';
+import type { AxiosResponse } from 'axios';
+import type { User } from './types/user';
+import type { UserResponse } from './types/responses';
+import UserContext from './contexts/UserContext';
+import { normalAxios } from './axiosInstance';
+import { getToken } from './tokenManager';
 import HomePage from './pages/home/HomePage';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
-import { normalAxios } from './axiosInstance';
-import { getToken } from './tokenManager';
-import UserContext from './contexts/UserContext';
-import type { User } from './types/user';
 import SettingsPage from './pages/settings/SettingsPage';
 import ChangeUsernamePage from './pages/settings/ChangeUsernamePage';
-import './App.css'
 import DeleteAccountPage from './pages/settings/DeleteAccountPage';
 import ChangePasswordPage from './pages/settings/ChangePasswordPage';
-import type { UserResponse } from './types/responses';
+import SetPage from './pages/set/SetPage';
+import './App.css'
 
 interface userIdJwtPayload extends JwtPayload {
   userId: string
@@ -52,6 +53,7 @@ function App() {
     <UserContext.Provider value={{user, reloadUser}}>
       <Routes>
         <Route index element={<HomePage />} />
+        <Route path='/:id' element={<SetPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/settings/username' element={<ChangeUsernamePage />} />
