@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import type { FullSet } from "../../types/set"
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { normalAxios } from "../../axiosInstance";
 import type { AxiosResponse } from "axios";
 import type { SetResponse } from "../../types/responses";
@@ -10,6 +10,8 @@ import useFeedbackText from "../../hooks/feedbackText";
 
 function SetPage() {
   const params = useParams();
+  const navigate = useNavigate();
+
   const [shareFeedbackText, showShareFeedback] = useFeedbackText();
 
   const [set, setSet] = useState<FullSet | null>(null);
@@ -36,6 +38,10 @@ function SetPage() {
       })
   }
 
+  function showCreatorsSets() {
+    navigate(`/?createdBy=${set?.createdBy}`);
+  }
+
   return ( 
     <>
       <title>Flashcards {}</title>
@@ -55,7 +61,7 @@ function SetPage() {
 
             <p className={`set-page-share-feedback feedback-text ${shareFeedbackText === '' ? '' : 'visible' }`}>{shareFeedbackText || 'Error'}</p>
             <div className="set-page-creator-container">
-              <button className="set-page-creator">Creator: {set.creatorName}</button>
+              <button onClick={showCreatorsSets} className="set-page-creator">Creator: {set.creatorName}</button>
               <button>Like | {set.likes}</button>
               <button onClick={copyToClipboard}>Share</button>
             </div>
