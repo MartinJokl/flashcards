@@ -1,0 +1,106 @@
+.practise-page-not-exist {
+  text-align: center;
+}
+.practise-page-name {
+  text-align: center;
+}
+.practise-page-progress {
+  text-align: center;
+}
+.flashcard {
+  background-color: var(--bg);
+  width: min(600px, 90%);
+  height: min(400px, calc(50vh - var(--header-height) - 1rem));;
+  margin: min(5rem, 5vh) auto;
+  text-align: center;
+  align-content: center;
+  font-size: 1.5rem;
+  transition: transform 0.2s, background-color 0.2s;
+}
+.flashcard:hover {
+  transform: rotateY(25deg) skewY(-2deg);
+  background-color: var(--bg-light);
+}
+.flashcard.flipped {
+  transform: rotateY(180deg) rotateZ(0);
+  background-color: var(--bg);
+}
+.flashcard.flipped:hover {
+  transform: rotateY(165deg) skewY(2deg);
+  background-color: var(--bg-light);
+}
+.flashcard.flipped > div {
+  transform: scaleX(-1)
+}
+.flashcard.fly-right {
+  animation: fly-right 0.2s;
+}
+.flashcard.fly-left {
+  animation: fly-left 0.2s;
+}
+@keyframes fly-right {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(30vw);
+    opacity: 0;
+  }
+}
+@keyframes fly-left {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-30vw);
+    opacity: 0;
+  }
+}
+
+.flashcard-stats-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.practise-wrong {
+  font-size: 1.5rem;
+  color: var(--error-color);
+  text-align: center;
+}
+.practise-correct {
+  font-size: 1.5rem;
+  color: var(--success-color);
+  text-align: center;
+}
+
+.practise-page-button-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1rem;
+}
+
+.practise-progress-bar-bottom {
+  background-color: var(--error-color);
+  height: 1rem;
+  width: 100%;
+  margin: 1rem auto;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.practise-progress-bar-top {
+  background-color: var(--success-color);
+  height: 100%;
+}
+.practise-score-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  margin: 1rem;
+  align-items: center;
+}
+.practise-summary-button-container {
+  display: flex;
+  justify-content: space-evenly;
+}

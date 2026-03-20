@@ -16,6 +16,10 @@ button {
 button:hover {
   background-color: var(--border);
 }
+button:disabled {
+  color: var(--text-muted);
+  pointer-events: none;
+}
 .primary-button {
   background-color: transparent;
   color: var(--color);

@@ -44,6 +44,12 @@ function SetPage() {
   function showCreatorsSets() {
     navigate(`/?createdBy=${set?.createdBy}`);
   }
+  function practiseSet() {
+    if (!set) {
+      return;
+    }
+    navigate(`/practise/${set.id}`)
+  }
 
   async function likeButtonPressed() {
     if (!set) {
@@ -88,7 +94,7 @@ function SetPage() {
             <p>{set.flashcards.length} flashcards</p>
 
             <div className="set-page-play-container">
-              <button className="primary-button">Practise</button>
+              <button onClick={practiseSet} className="primary-button">Practise</button>
               <button className="primary-button">Test</button>
             </div>
 

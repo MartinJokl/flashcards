@@ -15,6 +15,7 @@ import ChangeUsernamePage from './pages/settings/ChangeUsernamePage';
 import DeleteAccountPage from './pages/settings/DeleteAccountPage';
 import ChangePasswordPage from './pages/settings/ChangePasswordPage';
 import SetPage from './pages/set/SetPage';
+import PractisePage from './pages/practise/PractisePage';
 import './App.css'
 
 interface userIdJwtPayload extends JwtPayload {
@@ -53,6 +54,7 @@ function App() {
       <Routes>
         <Route index element={<HomePage />} />
         <Route path='/:id' element={<SetPage />} />
+        <Route path='/practise/:id' element={<PractisePage />}/>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/settings/username' element={<ChangeUsernamePage />} />
