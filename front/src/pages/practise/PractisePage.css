@@ -78,7 +78,9 @@
 
 .practise-page-button-container {
   display: flex;
-  justify-content: space-evenly;
+  width: max-content;
+  margin: auto;
+  column-gap: 1.5rem;
   padding: 1rem;
 }
 

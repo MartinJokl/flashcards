@@ -77,6 +77,14 @@ function PractisePage() {
     setCurrentCard(0);
     setWrongCards([]);
   }
+  function randomizeCards() {
+    const newCards: Flashcard[] = [...cards];
+    for (let i = currentCard; i < newCards.length; i++) {
+      const swapper: number = Math.floor(Math.random() * (newCards.length - currentCard) + currentCard);
+      [newCards[i], newCards[swapper]] = [newCards[swapper], newCards[i]];
+    }
+    setCards(newCards);
+  }
 
   function keyDown(event: KeyboardEvent) {
     if (currentCard >= cards.length) {
@@ -134,6 +142,7 @@ function PractisePage() {
                   </div>
                   <div className="practise-page-button-container">
                     <button onClick={wrong}>Wrong</button>
+                    <button onClick={randomizeCards}>Randomize</button>
                     <button onClick={correct}>Correct</button>
                   </div>
                 </>
