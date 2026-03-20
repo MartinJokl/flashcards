@@ -17,7 +17,7 @@ function SetDisplay({ set }: { set: Set }) {
       </div>
       <div className="set-display-creator-likes-container">
         <div>Creator: {set.creatorName}</div>
-        <div>{set.likes} likes</div>
+        <div className={`set-display-like ${set.isLiked ? 'liked' : ''}`}>{set.likes} likes</div>
       </div>
     </button>
   )

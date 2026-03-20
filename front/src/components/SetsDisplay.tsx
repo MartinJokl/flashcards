@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { normalAxios } from "../axiosInstance";
 import type { AxiosResponse } from "axios";
@@ -6,11 +6,14 @@ import type { Set } from '../types/set';
 import type { SetsResponse } from "../types/responses";
 import SetDisplay from "./SetDisplay";
 import './SetsDisplay.css'
+import type { User } from "../types/user";
+import UserContext from "../contexts/UserContext";
 
 function SetsDisplay() {
-  const limit: number = 2;
+  const limit: number = 10;
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const user: User | null = useContext(UserContext)!.user;
   
   const [sets, setSets] = useState<Set[]>([]);
   const [hits, sethits] = useState(0);
@@ -23,6 +26,9 @@ function SetsDisplay() {
 
   useEffect(() => {
     const params = new URLSearchParams([['getCount', 'true'], ['limit', String(limit)]])
+    if (user) {
+      params.append('potencialLiker', user.id);
+    }
     searchParams.forEach((value: string, key: string) => {
       params.append(key, value);
     });
@@ -39,7 +45,7 @@ function SetsDisplay() {
           setSets(response.data.sets)
         }
       })
-  }, [page, searchParams])
+  }, [page, searchParams, user])
 
   function updatePage(newPage: number): void {
     if (newPage >= 1 && newPage <= pages) {

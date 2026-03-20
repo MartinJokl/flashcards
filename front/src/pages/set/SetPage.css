@@ -32,3 +32,6 @@
 .set-page-creator {
   border: none;
 }
+.set-page-like-button.liked {
+  background-color: var(--color-muted);
+}
