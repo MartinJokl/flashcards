@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 import { normalAxios } from "../axiosInstance";
 import type { AxiosResponse } from "axios";
 import type { Set } from '../types/set';
-import type { SetsResponse } from "../types/responses";
+import type { SetsResponse, UserResponse } from "../types/responses";
 import SetDisplay from "./SetDisplay";
 import './SetsDisplay.css'
 import type { User } from "../types/user";
@@ -16,7 +16,8 @@ function SetsDisplay() {
   const user: User | null = useContext(UserContext)!.user;
   
   const [sets, setSets] = useState<Set[]>([]);
-  const [hits, sethits] = useState(0);
+  const [hits, setHits] = useState(0);
+  const [creatorName, setCreatorName] = useState<string | null>(null)
 
   const pages: number = Math.ceil(hits / limit);
   const page: number = Number(searchParams.get('page') ?? 1)
@@ -40,12 +41,30 @@ function SetsDisplay() {
       .then((response: AxiosResponse<SetsResponse>) => {
         if (response.status === 200) {
           if (response.data.hits) {
-            sethits(response.data.hits)
+            setHits(response.data.hits)
           }
           setSets(response.data.sets)
         }
-      })
+      });
+
   }, [page, searchParams, user])
+  useEffect(() => {
+    if (searchParams.has('createdBy')) {
+      normalAxios.get(`/api/accounts/${searchParams.get('createdBy')}`)
+        .then((response: AxiosResponse<UserResponse>) => {
+          if (response.status === 200) {
+            setCreatorName(response.data.username);
+          }
+          else {
+            setCreatorName('User does not exist');
+          }
+        })
+    }
+    else if (creatorName !== '') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCreatorName('');
+    }
+  }, [creatorName, searchParams])
 
   function updatePage(newPage: number): void {
     if (newPage >= 1 && newPage <= pages) {
@@ -63,6 +82,7 @@ function SetsDisplay() {
         <p className="sets-display-nothing">Nothing found</p>
       ) : (
         <div className="sets-display-container">
+          {creatorName && <h1 className="sets-display-creator">Sets from {creatorName}</h1>}
           {sets.map((set) => (
             <SetDisplay set={set} key={set.id} />
           ))}

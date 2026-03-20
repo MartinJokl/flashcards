@@ -44,9 +44,8 @@ function App() {
   }
 
   useEffect(() => {
-    (() => { // wrapping it in a function to make a warning shut up, i need to figure out a better fix later
-      reloadUser();
-    })()
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    reloadUser();
   }, []);
 
   return (
