@@ -9,9 +9,12 @@ import NotFoundError from '../errors/not-found.ts';
 import type { SetResponse, SetsResponse } from '../types/set-responses.ts';
 import type { Flashcard } from '../types/flashcard.ts';
 import type { MessageResponse } from '../types/message-response.ts';
+import type { potencialLikerQuery } from '../types/potencial-liker-query.ts';
 import mongoose from 'mongoose';
 
-export async function getSet(req: Request<IdParams>, res: Response<SetResponse>) {
+export async function getSet(req: Request<IdParams, {}, {}, potencialLikerQuery>, res: Response<SetResponse>) {
+    const potencialLiker: string | undefined = req.query.potencialLiker;
+
     const setId: string = req.params.id;
     const set = await Set.findById(setId);
     if (!set) {
@@ -20,6 +23,10 @@ export async function getSet(req: Request<IdParams>, res: Response<SetResponse>)
     const flashcards: Flashcard[] = set.flashcards.map(card => {
         return { question: card.question ?? 'question', answer: card.answer ?? 'answer' }
     });
+    let isLiked: boolean | null = null;
+    if (potencialLiker) {
+      isLiked = set.likers.includes(new mongoose.Types.ObjectId(potencialLiker));
+    }
     res.status(200).json({
         name: set.name, 
         description: 
@@ -28,12 +35,13 @@ export async function getSet(req: Request<IdParams>, res: Response<SetResponse>)
         likes: set.likes, 
         createdBy: String(set.createdBy), 
         creatorName: set.creatorName, 
-        flashcards 
+        isLiked: isLiked ?? false,
+        flashcards
     })
 }
 
 export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: Response<SetsResponse>) {
-    const {name, sort, likerId, createdBy, getCount} = req.query;
+    const {name, sort, likerId, createdBy, getCount, potencialLiker} = req.query;
     const queryObject: {
         name?: object,
         likers?: mongoose.Types.ObjectId,
@@ -63,14 +71,20 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
     const skip: number = (page - 1) * limit;
     result = result.skip(skip).limit(limit);
 
-    const sets = await result.select('name description creatorName _id likes');
+    const sets = await result.select(`name description creatorName _id likes ${potencialLiker ? 'likers' : ''}`);
     const returnSets = sets.map(set => {
+      let isLiked: boolean | null = null;
+        if (potencialLiker) {
+            isLiked = set.likers?.includes(new mongoose.Types.ObjectId(potencialLiker));
+        }
+
         return {
             name: set.name,
             description: set.description,
             creatorName: set.creatorName,
             id: String(set._id),
             likes: set.likes,
+            isLiked: isLiked ?? false
         }
     });
     const returnObject: { 
@@ -80,7 +94,8 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
         description: string | null | undefined,
         creatorName: string,
         id: string,
-        likes: number
+        likes: number,
+        isLiked: boolean
       }[] 
     } = { sets: returnSets }
 

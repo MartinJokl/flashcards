@@ -7,6 +7,7 @@ export interface SetResponse {
     likes: number,
     createdBy: string,
     creatorName: string,
+    isLiked: boolean;
     flashcards: Flashcard[]
 }
 
@@ -16,7 +17,8 @@ export interface SetsResponse {
         description: string | null | undefined,
         creatorName: string,
         id: string,
-        likes: number
+        likes: number,
+        isLiked: boolean
     }[],
     hits?: number
 }

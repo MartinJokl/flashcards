@@ -5,5 +5,6 @@ export interface SetQueryParams {
     createdBy?: string,
     getCount?: string,
     page?: string,
-    limit?: string
+    limit?: string,
+    potencialLiker?: string
 }
