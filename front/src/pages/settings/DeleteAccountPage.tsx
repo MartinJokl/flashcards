@@ -9,7 +9,7 @@ import type { MessageResponse } from "../../types/responses";
 function ChangeUsernamePage() {
   const navigate = useNavigate();
 
-  const { reloadUser } = useContext(UserContext)!;
+  const { user, reloadUser } = useContext(UserContext)!;
 
   async function deleteAccount(): Promise<void> {
     const response: AxiosResponse<MessageResponse> = await authedAxios.delete('/api/accounts');
@@ -31,7 +31,7 @@ function ChangeUsernamePage() {
 
       <div className="container settings-container central-container">
         <h1>Delete account</h1>
-        <p>Do you want to delete this account permanently?</p>
+        <p>Do you want to delete '{user?.username}' permanently?</p>
         <div className="settings-change-buttons-container">
           <Link to='/settings'><button className='secondary-button'>Back</button></Link>
           <button onClick={deleteAccount} className='red-button'>Delete</button>
