@@ -1,0 +1,5 @@
+.edit-page-buttons-container {
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+}

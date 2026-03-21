@@ -18,6 +18,7 @@ import SetPage from './pages/set/SetPage';
 import PractisePage from './pages/practise/PractisePage';
 import TestPage from './pages/test/TestPage';
 import CreatePage from './pages/create/CreatePage';
+import EditPage from './pages/edit/EditPage';
 import './App.css'
 
 interface userIdJwtPayload extends JwtPayload {
@@ -62,9 +63,10 @@ function App() {
         <Route path='/settings/delete' element={<DeleteAccountPage />} />
         <Route path='/settings' element={<SettingsPage />} />
         <Route path='/create' element={<CreatePage />} />
-        <Route path='/:id' element={<SetPage />} />
+        <Route path='/edit/:id' element={<EditPage />} />
         <Route path='/practise/:id' element={<PractisePage />}/>
         <Route path='/test/:id' element={<TestPage />}/>
+        <Route path='/:id' element={<SetPage />} />
       </Routes>
     </UserContext.Provider>
   )

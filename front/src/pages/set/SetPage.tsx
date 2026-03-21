@@ -86,9 +86,22 @@ function SetPage() {
     }
   }
 
+  function goToEditPage() {
+    if (!set) {
+      return;
+    }
+    navigate(`/edit/${set.id}`)
+  }
+  function goToDeletePage() {
+    if (!set) {
+      return;
+    }
+    navigate(`/delete/${set.id}`)
+  }
+
   return ( 
     <>
-      <title>Flashcards {}</title>
+      <title>Flashcards</title>
       <Header />
       {!set 
         ? (
@@ -113,6 +126,12 @@ function SetPage() {
               <button onClick={showCreatorsSets} className="set-page-creator">Creator: {set.creatorName}</button>
               <button onClick={likeButtonPressed} className={`set-page-like-button ${set.isLiked ? 'liked' : ''}`}>Like | {set.likes}</button>
               <button onClick={copyToClipboard}>Share</button>
+              {user && (user.id === set.createdBy) && (
+              <>
+                <button onClick={goToEditPage}>Edit</button>
+                <button onClick={goToDeletePage}>Delete</button>
+              </>
+            )}
             </div>
           </div>
         )
