@@ -34,7 +34,7 @@ function SetPage() {
     const url = document.URL;
     navigator.clipboard.writeText(url)
       .then(() => {
-        showShareFeedback('Link copied to clipboard');
+        showShareFeedback('✔ Link copied to clipboard');
       })
       .catch(() => {
         showShareFeedback('Copying to clipboard failed');
