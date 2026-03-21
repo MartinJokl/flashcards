@@ -104,6 +104,7 @@ select {
   border: 1px solid var(--border);
   border-radius: 5px;
   padding: 0.25rem;
+  cursor: pointer;
 }
 input[type="checkbox"] {
   appearance: none;
@@ -113,6 +114,7 @@ input[type="checkbox"] {
   height: 1.5rem;
   position: relative;
   margin: 0;
+  cursor: pointer;
 }
 input[type="checkbox"]::before {
   content: "✔";
