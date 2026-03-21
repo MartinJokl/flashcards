@@ -65,7 +65,7 @@ function ChangePasswordPage() {
         <p className={`feedback-text error-text ${errorText === '' ? '' : 'visible'}`}>{errorText || 'Error'}</p>
 
         <div className="settings-change-buttons-container">
-          <Link to='/settings'><button className='secondary-button'>Back</button></Link>
+          <Link to='/settings'><button>Back</button></Link>
           <button onClick={change} className='primary-button'>Change</button>
         </div>
       </div>

@@ -17,11 +17,13 @@
   --gradient: linear-gradient(0deg, var(--bg) 95%, var(--bg-light));
 
   --color: hsl(171, 100%, 65%);
-  --color-muted: hsl(171, 100%, 15%);
+  --color-muted: hsl(171, 100%, 19%);
+  --color-bg: hsl(170, 100%, 10%);
 
   --link-color: hsl(218, 100%, 65%);
   --error-color: hsl(0, 96%, 67%);
   --error-muted: hsl(0, 96%, 20%);
+  --error-bg: hsl(0, 40%, 15%);
   --success-color: hsl(115, 100%, 68%);
 
   --header-height: 8rem;
@@ -41,12 +43,14 @@
     --border: hsl(0, 0%, 70%);
     --highlight: hsl(0, 0%, 75%);
     /*--gradient: linear-gradient(0deg, var(--bg) 95%, var(--bg-light));*/
-    --color: hsl(171, 100%, 40%);
-    --color-muted: hsl(171, 100%, 85%);
+    --color: hsl(171, 100%, 29%);
+    --color-muted: hsl(171, 80%, 60%);
+    --color-bg: hsl(171, 100%, 90%);
 
     --link-color: hsl(218, 100%, 35%);
     --error-color: hsl(0, 89%, 45%);
     --error-muted: hsl(0, 96%, 83%);
-    --success-color: hsl(115, 100%, 48%);
+    --error-bg: hsl(0, 100%, 93%);
+    --success-color: hsl(115, 100%, 30%);
   }
 }

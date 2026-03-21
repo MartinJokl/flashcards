@@ -132,7 +132,7 @@ function SetsDisplay() {
             <SetDisplay set={set} key={set.id} />
           ))}
           <div className="page-button-container">
-            <button onClick={() => updatePage(page - 1)} className='secondary-button' disabled={page === 1}>{'<'}</button>
+            <button onClick={() => updatePage(page - 1)} disabled={page === 1}>{'<'}</button>
             {[...Array(Math.min(5, pages)).keys()].map(number => {
               let offset: number = -2;
               if (page <= 2 || pages <= 5) {
@@ -144,10 +144,10 @@ function SetsDisplay() {
               const pageNumber = page + number + offset;
 
               return (
-                <button onClick={() => updatePage(pageNumber)} key={number} className={page === pageNumber ? 'primary-button' : 'secondary-button'}>{pageNumber}</button>
+                <button onClick={() => updatePage(pageNumber)} key={number} className={page === pageNumber ? 'primary-button' : ''}>{pageNumber}</button>
               )
             })}
-            <button onClick={() => updatePage(page + 1)} className='secondary-button' disabled={page === pages}>{'>'}</button>
+            <button onClick={() => updatePage(page + 1)} disabled={page === pages}>{'>'}</button>
           </div>
       </div>
       )}

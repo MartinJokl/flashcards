@@ -56,12 +56,12 @@ function Header() {
       ? (
         <>
           <div><NavLink className='header-nav-link' to='/settings'>{user.username}</NavLink></div>
-          <button onClick={logOut} className='primary-button'>Log out</button>
+          <button onClick={logOut}>Log out</button>
         </>
       ) : (
         <>
           <Link to='/login'><button className='primary-button' id='header-login-button'>Log in</button></Link>
-          <Link to='/register'><button className='secondary-button' id='header-register-button'>Register</button></Link>
+          <Link to='/register'><button id='header-register-button'>Register</button></Link>
         </>
       )}
     </header>

@@ -21,28 +21,16 @@ button:disabled {
   pointer-events: none;
 }
 .primary-button {
-  background-color: transparent;
+  background-color: var(--color-bg);
   color: var(--color);
   border-color: var(--color);
 }
 .primary-button:hover {
   background-color: var(--color-muted);
 }
-.secondary-button {
-  background-color: transparent;
-  color: var(--text);
-  border-color: var(--text);
-}
-.secondary-button:hover {
-  background-color: var(--border);
-}
-.secondary-button:disabled {
-  color: var(--border);
-  border-color: var(--border);
-  pointer-events: none;
-}
+
 .red-button {
-  background-color: transparent;
+  background-color: var(--error-bg);
   color: var(--error-color);
   border-color: var(--error-color);
 }

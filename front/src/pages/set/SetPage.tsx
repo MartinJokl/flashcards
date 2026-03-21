@@ -129,7 +129,7 @@ function SetPage() {
               {user && (user.id === set.createdBy) && (
               <>
                 <button onClick={goToEditPage}>Edit</button>
-                <button onClick={goToDeletePage}>Delete</button>
+                <button className="red-button" onClick={goToDeletePage}>Delete</button>
               </>
             )}
             </div>

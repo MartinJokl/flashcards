@@ -42,7 +42,7 @@ function ChangeUsernamePage() {
         <h1>Delete set</h1>
         <p>Do you want to delete '{setName}' permanently?</p>
         <div className="settings-change-buttons-container">
-          <Link to={`/${params.id}`}><button className='secondary-button'>Back</button></Link>
+          <Link to={`/${params.id}`}><button>Back</button></Link>
           <button onClick={deleteSet} className='red-button'>Delete</button>
         </div>
       </div>

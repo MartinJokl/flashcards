@@ -65,7 +65,7 @@ function EditPage() {
       <p className={`feedback-text error-text ${errorText === '' ? '' : 'visible'}`}>{errorText || 'Error'}</p>
       <div className="edit-page-buttons-container">
         <button onClick={cancel}>Cancel</button>
-        <button onClick={save}>Save set</button>
+        <button className="primary-button" onClick={save}>Save set</button>
       </div>
     </>
   )

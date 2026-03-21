@@ -33,7 +33,7 @@ function ChangeUsernamePage() {
         <h1>Delete account</h1>
         <p>Do you want to delete '{user?.username}' permanently?</p>
         <div className="settings-change-buttons-container">
-          <Link to='/settings'><button className='secondary-button'>Back</button></Link>
+          <Link to='/settings'><button>Back</button></Link>
           <button onClick={deleteAccount} className='red-button'>Delete</button>
         </div>
       </div>
