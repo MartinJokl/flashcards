@@ -113,4 +113,32 @@ select {
   color: var(--text);
   font-size: 1.25rem;
   padding: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.25rem;
+}
+input[type="checkbox"] {
+  appearance: none;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  margin: 0;
+}
+input[type="checkbox"]::before {
+  content: "✔";
+  font-size: 1rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  align-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+input[type="checkbox"]:checked::before {
+  opacity: 1;
 }

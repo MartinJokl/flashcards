@@ -20,6 +20,8 @@ function SetsDisplay() {
   const [creatorName, setCreatorName] = useState<string | null>(null)
 
   const [sort, setSort] = useState('-likes');
+  const [likedFilter, setLikedFilter] = useState(false);
+  const [mySetFilter, setMySetFilter] = useState(false);
 
   const pages: number = Math.ceil(hits / limit);
   const page: number = Number(searchParams.get('page') ?? 1)
@@ -29,6 +31,18 @@ function SetsDisplay() {
 
   useEffect(() => {
     const params = new URLSearchParams([['getCount', 'true'], ['limit', String(limit)], ['sort', sort]])
+    if (likedFilter) {
+      if (!user) {
+        return;
+      }
+      params.append('likerId', user.id);
+    }
+    if (mySetFilter) {
+      if (!user) {
+        return;
+      }
+      params.append('createdBy', user.id)
+    }
     if (user) {
       params.append('potencialLiker', user.id);
     }
@@ -49,7 +63,7 @@ function SetsDisplay() {
         }
       });
 
-  }, [page, searchParams, user, sort])
+  }, [page, searchParams, user, sort, likedFilter, mySetFilter])
   useEffect(() => {
     if (searchParams.has('createdBy')) {
       normalAxios.get(`/api/accounts/${searchParams.get('createdBy')}`)
@@ -77,8 +91,14 @@ function SetsDisplay() {
     }
   }
 
-  function sortChanged(event: ChangeEvent<HTMLSelectElement, HTMLSelectElement>): void {
+  function changeSort(event: ChangeEvent<HTMLSelectElement, HTMLSelectElement>): void {
     setSort(event.target.value);
+  }
+  function changeLikedFilter(event: ChangeEvent<HTMLInputElement, HTMLInputElement>): void {
+    setLikedFilter(event.target.checked);
+  }
+  function changeMySetFilter(event: ChangeEvent<HTMLInputElement, HTMLInputElement>): void {
+    setMySetFilter(event.target.checked);
   }
 
   return (
@@ -89,13 +109,23 @@ function SetsDisplay() {
       ) : (
         <div className="sets-display-container">
           {creatorName && <h1 className="sets-display-creator">Sets from {creatorName}</h1>}
-          <div className="sets-display-sort-container">
-            <span>Sort: </span>
-            <select className="sets-display-sort-selector" value={sort} onChange={sortChanged}>
-              <option value="-likes">Most liked</option>
-              <option value="-createdAt">Newest</option>
-              <option value="createdAt">Oldest</option>
-            </select>
+          <div className="sets-display-options">
+            <div>
+              <span>Sort: </span>
+              <select className="sets-display-sort-selector" value={sort} onChange={changeSort}>
+                <option value="-likes">Most liked</option>
+                <option value="-createdAt">Newest</option>
+                <option value="createdAt">Oldest</option>
+              </select>
+            </div>
+            <div>
+              <span>Liked</span>
+              <input type="checkbox" checked={likedFilter} onChange={changeLikedFilter} />
+            </div>
+            <div>
+              <span>My set</span>
+              <input type="checkbox" checked={mySetFilter} onChange={changeMySetFilter} />
+            </div>
           </div>
           {sets.map((set) => (
             <SetDisplay set={set} key={set.id} />

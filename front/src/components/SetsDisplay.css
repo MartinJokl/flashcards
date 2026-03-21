@@ -18,8 +18,17 @@
 .sets-display-creator {
   text-align: center;
 }
-.sets-display-sort-container {
-  text-align: center;
-  margin: 1rem;
+.sets-display-options span {
   font-size: 1.25rem;
+}
+.sets-display-options > div {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+.sets-display-options {
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
 }
