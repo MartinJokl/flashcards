@@ -13,14 +13,24 @@ function SetDisplay({ set }: { set: Set }) {
 
   return (
     <button className="set-display" onClick={openSet}>
-      <p className="set-display-date">{date.toLocaleDateString()}</p>
+      <p className="set-display-date">
+        <span className="material-icons md-24">date_range</span>{date.toLocaleDateString()}
+      </p>
       <div className="set-display-name-description-container">
         <h3 className="set-display-name">{set.name}</h3>
         <p>{set.description || 'No description'}</p>
       </div>
       <div className="set-display-creator-likes-container">
-        <div>Creator: {set.creatorName}</div>
-        <div className={`set-display-like ${set.isLiked ? 'liked' : ''}`}>{set.likes} likes</div>
+        <div className="set-display-creator"><span className="material-icons md-24">account_circle</span>{set.creatorName}</div>
+        <div className="set-display-like">
+          {set.likes}
+          {set.isLiked 
+          ? (
+            <span className="material-icons">favorite</span>
+          ) : (
+            <span className="material-icons">favorite_border</span>
+          )}
+        </div>
       </div>
     </button>
   )

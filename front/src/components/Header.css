@@ -16,31 +16,43 @@ header {
   border: 1px solid var(--border);
   border-radius: 1rem;
   overflow: hidden;
-  height: 3rem;
 }
 #header-search:has(#header-search-input:focus) {
   border: 2px solid var(--highlight);
 }
 #header-search-button {
-  height: 3rem;
   border: none;
   border-left: 1px solid var(--border);
   border-radius: 0;
+  padding: 0.5rem;
 }
-#header-search-icon {
-  height: 70%;
-  color: var(--color);
+#header-search-button > span {
+  display: block;
 }
 #header-search-input {
   font-size: 1.5rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 0;
 }
 
 .header-nav-link {
   color: var(--text);
   text-decoration: none;
+  position: relative;
 }
-.header-nav-link.active {
-  text-decoration: underline;
+
+/* underlined with a pseudoelement to make it on the same level under the account icon and the text  */
+.header-nav-link.active::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: var(--text-muted);
+}
+
+.header-account-container {
+  display: flex;
+  align-items: center;
 }

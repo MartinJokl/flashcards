@@ -123,13 +123,29 @@ function SetPage() {
 
             <p className={`set-page-share-feedback feedback-text ${shareFeedbackText === '' ? '' : 'visible' }`}>{shareFeedbackText || 'Error'}</p>
             <div className="set-page-creator-container">
-              <button onClick={showCreatorsSets} className="set-page-creator">Creator: {set.creatorName}</button>
-              <button onClick={likeButtonPressed} className={`set-page-like-button ${set.isLiked ? 'liked' : ''}`}>Like | {set.likes}</button>
-              <button onClick={copyToClipboard}>Share</button>
+              <button onClick={showCreatorsSets}>
+                <span className="material-icons">account_circle</span> {set.creatorName}
+              </button>
+              <button onClick={likeButtonPressed}>
+                {set.likes}
+                {set.isLiked
+                ? (
+                  <span className="material-icons">favorite</span>
+                ) : (
+                  <span className="material-icons">favorite_border</span>
+                )}
+              </button>
+              <button onClick={copyToClipboard}>
+                <span className="material-icons">share</span> Share
+              </button>
               {user && (user.id === set.createdBy) && (
               <>
-                <button onClick={goToEditPage}>Edit</button>
-                <button className="red-button" onClick={goToDeletePage}>Delete</button>
+                <button onClick={goToEditPage}>
+                  <span className="material-icons">edit</span>Edit
+                </button>
+                <button className="red-button" onClick={goToDeletePage}>
+                  <span className="material-icons">delete</span>Delete
+                </button>
               </>
             )}
             </div>

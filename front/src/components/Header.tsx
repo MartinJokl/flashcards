@@ -2,7 +2,6 @@ import { useContext, useState, type ChangeEvent, type KeyboardEvent } from 'reac
 import { Link, NavLink, useNavigate, useSearchParams } from 'react-router';
 import UserContext from '../contexts/UserContext';
 import './Header.css';
-import SearchIcon from '../assets/search.png'
 import { deleteToken } from '../tokenManager';
 import type { User } from '../types/user';
 
@@ -48,14 +47,18 @@ function Header() {
           value={searchInput} 
           onChange={updateSearchInput}
           onKeyDown={searchBarKeyPressed} />
-        <button id='header-search-button' onClick={search}>
-          <img src={SearchIcon} alt="search icon" id='header-search-icon' />
-        </button>
+          <button id='header-search-button' onClick={search}>
+            <span className="material-icons md-24">search</span>
+          </button>
       </div>
       {user 
       ? (
         <>
-          <div><NavLink className='header-nav-link' to='/settings'>{user.username}</NavLink></div>
+          <div>
+            <NavLink className='header-nav-link header-account-container' to='/settings'>
+              <span className="material-icons md-24">account_circle</span>{user.username}
+            </NavLink>
+          </div>
           <button onClick={logOut}>Log out</button>
         </>
       ) : (
