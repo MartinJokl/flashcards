@@ -18,7 +18,7 @@
   transition: transform 0.2s, background-color 0.2s;
 }
 .flashcard:hover {
-  transform: rotateY(25deg) skewY(-2deg);
+  transform: rotateY(15deg) skewY(-1deg);
   background-color: var(--bg-light);
 }
 .flashcard.flipped {
@@ -26,7 +26,7 @@
   background-color: var(--bg);
 }
 .flashcard.flipped:hover {
-  transform: rotateY(165deg) skewY(2deg);
+  transform: rotateY(165deg) skewY(1deg);
   background-color: var(--bg-light);
 }
 .flashcard.flipped > div {
