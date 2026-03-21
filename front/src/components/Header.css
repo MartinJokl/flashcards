@@ -4,15 +4,16 @@ header {
   display: grid;
   grid-template-columns: auto auto 1fr auto auto;
   align-items: center;
-  column-gap: 4rem;
-  padding: 0 4rem;
-  font-size: 1.5rem;
+  justify-items: center;
+  column-gap: min(4rem, 3vw);
+  padding: 0 min(4rem, 3vw);
+  font-size: min(1.5rem, 3vw);
 }
 
 #header-search {
   display: grid;
   grid-template-columns: 1fr auto;
-  margin: 0 15vw;
+  width: min(100%, 1000px);
   border: 1px solid var(--border);
   border-radius: 1rem;
   overflow: hidden;
@@ -30,9 +31,10 @@ header {
   display: block;
 }
 #header-search-input {
-  font-size: 1.5rem;
+  font-size: min(1.5rem, 3vw);
   padding: 0.25rem 0.75rem;
   border-radius: 0;
+  min-width: 0;
 }
 
 .header-nav-link {
@@ -55,4 +57,7 @@ header {
 .header-account-container {
   display: flex;
   align-items: center;
+}
+header button {
+  font-size: min(1.5rem, 3vw);
 }

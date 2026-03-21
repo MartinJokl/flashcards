@@ -3,7 +3,9 @@
   margin-top: auto;
 }
 .page-button-container > button {
-  margin: 1rem 0.5rem;
+  margin: 1rem min(0.5rem, 2vw);
+  padding: 0.5rem min(1rem, 3vw);
+  font-size: min(1.25rem, 4vw);
 }
 .sets-display-container {
   display: flex;
@@ -30,5 +32,7 @@
   margin: 1rem;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 1rem;
   column-gap: 2rem;
 }

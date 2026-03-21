@@ -66,12 +66,12 @@
   align-items: center;
 }
 .practise-wrong {
-  font-size: 1.5rem;
+  font-size: min(1.5rem, 4vw);
   color: var(--error-color);
   text-align: center;
 }
 .practise-correct {
-  font-size: 1.5rem;
+  font-size: min(1.5rem, 4vw);
   color: var(--success-color);
   text-align: center;
 }
@@ -82,6 +82,9 @@
   margin: auto;
   column-gap: 1.5rem;
   padding: 1rem;
+}
+.practise-page-button-container > button {
+  font-size: min(1.25rem, 3vw);
 }
 
 .practise-progress-bar-bottom {

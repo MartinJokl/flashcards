@@ -44,6 +44,7 @@ function Header() {
           type="text" 
           id='header-search-input' 
           placeholder='Search' 
+          
           value={searchInput} 
           onChange={updateSearchInput}
           onKeyDown={searchBarKeyPressed} />

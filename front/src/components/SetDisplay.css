@@ -1,7 +1,7 @@
 .set-display {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  column-gap: 1rem;
+  column-gap: 0.5rem;
   margin: 1rem auto;
   padding: 0.75rem 1rem;
   width: min(50rem, 90vw);
@@ -18,9 +18,11 @@
 .set-display-creator {
   display: flex;
   align-items: center;
+  font-size: min(1.25rem, 4vw);
 }
 .set-display-name-description-container {
   overflow: hidden;
+  font-size: min(1.25rem, 4vw);
 }
 .set-display-like {
   display: flex;
@@ -32,4 +34,5 @@
   margin-top: auto;
   display: flex;
   align-items: center;
+  font-size: min(1.25rem, 3.5vw);
 }
