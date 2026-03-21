@@ -97,7 +97,11 @@ function SetPage() {
           <div className="container set-page-container">
             <h1 className="set-page-name">{set.name}</h1>
             <p className="set-page-description">{set.description || 'No description'}</p>
-            <p>{set.flashcards.length} flashcards</p>
+
+            <div className="set-page-info-container">
+              <p>{set.flashcards.length} flashcards</p>
+              <p>released {(new Date(set.createdAt)).toLocaleDateString()}</p>
+            </div>
 
             <div className="set-page-play-container">
               <button onClick={practiseSet} className="primary-button">Practise</button>

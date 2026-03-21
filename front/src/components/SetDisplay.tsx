@@ -4,6 +4,8 @@ import './SetDisplay.css'
 
 function SetDisplay({ set }: { set: Set }) {
   const navigate = useNavigate();
+  
+  const date: Date = new Date(set.createdAt);
 
   function openSet() {
     navigate(`/${set.id}`)
@@ -11,6 +13,7 @@ function SetDisplay({ set }: { set: Set }) {
 
   return (
     <button className="set-display" onClick={openSet}>
+      <p className="set-display-date">{date.toLocaleDateString()}</p>
       <div className="set-display-name-description-container">
         <h3 className="set-display-name">{set.name}</h3>
         <p>{set.description || 'No description'}</p>

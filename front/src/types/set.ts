@@ -6,7 +6,8 @@ export type Set = {
   creatorName: string,
   id: string,
   likes: number,
-  isLiked: boolean
+  isLiked: boolean,
+  createdAt: string
 }
 export type FullSet = {
   name: string,
@@ -16,5 +17,6 @@ export type FullSet = {
   createdBy: string,
   creatorName: string,
   isLiked: boolean,
+  createdAt: string,
   flashcards: Flashcard[]
 }

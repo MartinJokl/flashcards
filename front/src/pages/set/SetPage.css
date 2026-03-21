@@ -35,3 +35,8 @@
 .set-page-like-button.liked {
   background-color: var(--color-muted);
 }
+.set-page-info-container {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
+}
