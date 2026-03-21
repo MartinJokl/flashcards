@@ -87,14 +87,16 @@ function PractisePage() {
   }
 
   function keyDown(event: KeyboardEvent) {
-    if (currentCard >= cards.length) {
-      return;
+    if (event.key === ' ' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      flipCard();
     }
-    if (event.key === 'ArrowRight') {
-      correct();
-    }
-    else if (event.key === 'ArrowLeft') {
-      wrong();
+    else if (currentCard < cards.length) {
+      if (event.key === 'ArrowRight') {
+        correct();
+      }
+      else if (event.key === 'ArrowLeft') {
+        wrong();
+      }
     }
   }
 
