@@ -17,7 +17,6 @@ function CreatePage() {
   const [set , setSet] = useState<CreationSet>({
     name: '',
     description: '',
-    private: false,
     flashcards: []
   });
 

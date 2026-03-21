@@ -56,13 +56,6 @@ function SetEditor({ set, setSet }: { set: CreationSet, setSet: (set: CreationSe
     })
   }
 
-  function privacyCheckboxChanged(event: ChangeEvent<HTMLInputElement, HTMLInputElement>): void {
-    setSet({
-      ...set,
-      private: event.target.checked
-    });
-  }
-
   return (
     <>
       <div className="set-editor-input-container container">
@@ -73,10 +66,6 @@ function SetEditor({ set, setSet }: { set: CreationSet, setSet: (set: CreationSe
         <div className='input-container'>
           <span>Description: </span>
           <input name="description" type="text" value={set.description} onChange={handleInputChange} />
-        </div>
-        <div className='set-editor-private'>
-          <span>Private: </span>
-          <input type="checkbox" checked={set.private} onChange={privacyCheckboxChanged}/>
         </div>
       </div>
       <h2 className="set-editor-cards-count">{set.flashcards.length} flashcards</h2>

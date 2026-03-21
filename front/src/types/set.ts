@@ -23,6 +23,5 @@ export type FullSet = {
 export type CreationSet = {
   name: string,
   description: string,
-  private: boolean,
   flashcards: KeyFlashcard[]
 }
