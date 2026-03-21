@@ -107,7 +107,7 @@ function PractisePage() {
 
   return (
     <>
-      <title>Flashcards {}</title>
+      <title>Flashcards practise</title>
       <Header />
       {!set 
         ? (
