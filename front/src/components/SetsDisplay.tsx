@@ -31,18 +31,21 @@ function SetsDisplay() {
 
   useEffect(() => {
     const params = new URLSearchParams([['getCount', 'true'], ['limit', String(limit)], ['sort', sort]])
+    searchParams.forEach((value: string, key: string) => {
+      params.append(key, value);
+    });
     if (likedFilter) {
-      params.append('likerId', user?.id ?? 'no');
+      params.append('likerId', user?.id ?? 'no')
     }
     if (mySetFilter) {
-      params.append('createdBy', user?.id ?? 'no')
+      const userId = user?.id ?? 'no'
+      if (!params.has('createdBy') || params.get('createdBy') !== userId) {
+        params.append('createdBy', userId);
+      }
     }
     if (user) {
       params.append('potencialLiker', user.id);
     }
-    searchParams.forEach((value: string, key: string) => {
-      params.append(key, value);
-    });
     if (!params.get('page')) {
       params.append('page', '1');
     }
