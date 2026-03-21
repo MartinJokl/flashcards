@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-height) - 5rem);
 }
 .sets-display-nothing {
   margin-top: 3rem;
