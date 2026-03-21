@@ -36,6 +36,7 @@ export async function getSet(req: Request<IdParams, {}, {}, potencialLikerQuery>
         createdBy: String(set.createdBy), 
         creatorName: set.creatorName, 
         isLiked: isLiked ?? false,
+        createdAt: set.createdAt,
         flashcards
     })
 }
@@ -71,7 +72,7 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
     const skip: number = (page - 1) * limit;
     result = result.skip(skip).limit(limit);
 
-    const sets = await result.select(`name description creatorName _id likes ${potencialLiker ? 'likers' : ''}`);
+    const sets = await result.select(`name description creatorName _id likes ${potencialLiker ? 'likers' : ''} createdAt`);
     const returnSets = sets.map(set => {
       let isLiked: boolean | null = null;
         if (potencialLiker) {
@@ -84,7 +85,8 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
             creatorName: set.creatorName,
             id: String(set._id),
             likes: set.likes,
-            isLiked: isLiked ?? false
+            isLiked: isLiked ?? false,
+            createdAt: set.createdAt
         }
     });
     const returnObject: { 
@@ -95,7 +97,8 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
         creatorName: string,
         id: string,
         likes: number,
-        isLiked: boolean
+        isLiked: boolean,
+        createdAt: Date
       }[] 
     } = { sets: returnSets }
 

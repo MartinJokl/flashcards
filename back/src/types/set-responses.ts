@@ -7,7 +7,8 @@ export interface SetResponse {
     likes: number,
     createdBy: string,
     creatorName: string,
-    isLiked: boolean;
+    isLiked: boolean,
+    createdAt: Date,
     flashcards: Flashcard[]
 }
 
@@ -18,7 +19,8 @@ export interface SetsResponse {
         creatorName: string,
         id: string,
         likes: number,
-        isLiked: boolean
+        isLiked: boolean,
+        createdAt: Date
     }[],
     hits?: number
 }
