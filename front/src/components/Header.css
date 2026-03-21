@@ -2,7 +2,7 @@ header {
   background-color: var(--bg);
   height: var(--header-height);
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto auto 1fr auto auto;
   align-items: center;
   column-gap: 4rem;
   padding: 0 4rem;

@@ -1,4 +1,4 @@
-import type { Flashcard } from "./flashcards";
+import type { Flashcard, KeyFlashcard } from "./flashcards";
 
 export type Set = {
   name: string,
@@ -19,4 +19,10 @@ export type FullSet = {
   isLiked: boolean,
   createdAt: string,
   flashcards: Flashcard[]
+}
+export type CreationSet = {
+  name: string,
+  description: string,
+  private: boolean,
+  flashcards: KeyFlashcard[]
 }

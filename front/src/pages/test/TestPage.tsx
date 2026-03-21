@@ -6,24 +6,25 @@ import type { AxiosResponse } from "axios";
 import type { SetResponse } from "../../types/responses";
 import Header from "../../components/Header";
 import './TestPage.css';
-import type { Flashcard } from "../../types/flashcards";
+import type { Flashcard, KeyFlashcard } from "../../types/flashcards";
 
 function TestPage() {
   const params = useParams();
 
   const [set, setSet] = useState<FullSet | null>(null);
-  const [randomCards, setRandomCards] = useState<Flashcard[]>([]);
+  const [randomCards, setRandomCards] = useState<KeyFlashcard[]>([]);
   const [showAsnwers, setShowAnswers] = useState(false);
 
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
 
   function makeRandomCards(cards: Flashcard[]): void {
-    const randomCards = [...cards];
+    const randomCards: Flashcard[] = [...cards];
     for (let i = 0; i < randomCards.length; i++) {
       const swapper: number = Math.floor(Math.random() * randomCards.length);
       [randomCards[i], randomCards[swapper]] = [randomCards[swapper], randomCards[i]];
     }
-    setRandomCards(randomCards);
+    const keyCards: KeyFlashcard[] = randomCards.map((card: Flashcard) => ({ ...card, key: crypto.randomUUID() }))
+    setRandomCards(keyCards);
   }
 
   useEffect(() => {
@@ -74,8 +75,8 @@ function TestPage() {
           <>
             <h1 className="test-page-name">{set.name}</h1>
             <div className={`test-questions-container ${showAsnwers ? 'show-answers' : ''}`}>
-              {randomCards.map((card: Flashcard, index: number) => (
-                <Fragment key={card.question}>
+              {randomCards.map((card: KeyFlashcard, index: number) => (
+                <Fragment key={card.key}>
                   <span className="test-question">{card.question}</span>
                   <input 
                     className="test-answer-box" 

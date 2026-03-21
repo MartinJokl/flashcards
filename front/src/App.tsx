@@ -17,6 +17,7 @@ import ChangePasswordPage from './pages/settings/ChangePasswordPage';
 import SetPage from './pages/set/SetPage';
 import PractisePage from './pages/practise/PractisePage';
 import TestPage from './pages/test/TestPage';
+import CreatePage from './pages/create/CreatePage';
 import './App.css'
 
 interface userIdJwtPayload extends JwtPayload {
@@ -54,15 +55,16 @@ function App() {
     <UserContext.Provider value={{user, reloadUser}}>
       <Routes>
         <Route index element={<HomePage />} />
-        <Route path='/:id' element={<SetPage />} />
-        <Route path='/practise/:id' element={<PractisePage />}/>
-        <Route path='/test/:id' element={<TestPage />}/>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/settings/username' element={<ChangeUsernamePage />} />
         <Route path='/settings/password' element={<ChangePasswordPage />} />
         <Route path='/settings/delete' element={<DeleteAccountPage />} />
         <Route path='/settings' element={<SettingsPage />} />
+        <Route path='/create' element={<CreatePage />} />
+        <Route path='/:id' element={<SetPage />} />
+        <Route path='/practise/:id' element={<PractisePage />}/>
+        <Route path='/test/:id' element={<TestPage />}/>
       </Routes>
     </UserContext.Provider>
   )

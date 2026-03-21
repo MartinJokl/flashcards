@@ -1,0 +1,44 @@
+.set-editor-input-container {
+  width: min(700px, 90%);
+  margin: 3rem auto;
+}
+.set-editor-flashcards-container {
+  display: grid;
+  row-gap: 3rem;
+  justify-content: start;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fit, 350px);
+  margin-bottom: 3rem;
+}
+.set-editor-card-container {
+  background-color: var(--bg);
+  width: 300px;
+  padding: 1rem;
+  padding-top: 0.125rem;
+  border-radius: 10px;
+  position: relative;
+}
+.set-editor-card-adder {
+  font-size: 7rem;
+  width: 300px;
+  background-color: var(--bg);
+  color: var(--text-muted)
+}
+.set-editor-cards-count {
+  text-align: center;
+  margin-top: 5rem;
+}
+.set-editor-delete-card {
+  position: absolute;
+  padding: 0 0.4rem;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: block;
+}
+.set-editor-private {
+  display: flex;
+  justify-content: start;
+  column-gap: 0.5rem;
+  margin-top: 1.25rem;
+  color: var(--text-muted)
+}

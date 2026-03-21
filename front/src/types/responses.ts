@@ -14,3 +14,6 @@ export type MessageResponse = {
 export type UserResponse = {
   username: string
 }
+export type IdResponse = {
+  id: string
+}
