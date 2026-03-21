@@ -87,8 +87,10 @@ export async function updateAccount(req: Request<{}, {}, UserBody>, res: Respons
 
 export async function deleteAccount(req: Request, res: Response<MessageResponse>) {
     const user: UserReqType = req.user!;
-    
+
     await User.findByIdAndDelete(user.id);
+    
+    await Set.deleteMany({ createdBy: user.id })
 
     res.status(200).json({ message: 'User deleted' });
 }
