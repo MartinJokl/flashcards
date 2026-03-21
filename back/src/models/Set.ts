@@ -4,7 +4,6 @@ const setSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'You must provide a name'],
-        minlength: 3,
         maxlength: 30
     },
     description: {

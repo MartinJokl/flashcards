@@ -111,7 +111,7 @@ export async function getAllSets(req: Request<{}, {}, {}, SetQueryParams>, res: 
 
 export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdResponse>) {
     const user: UserReqType = req.user!;
-    if (!req.body || !req.body.flashcards || !req.body.name) {
+    if (!req.body || !req.body.flashcards || req.body.flashcards.length === 0 || !req.body.name) {
         throw new BadRequestError('You must provide flashcards and a name');
     }
     const creationSet: {
