@@ -48,8 +48,8 @@ export async function createAccount(req: Request<{}, {}, UserBody>, res: Respons
     else if (password.length < 8) {
         throw new UnauthorizedError('Password must be at least 8 characters long');
     }
-    else if (username.length < 3) {
-      throw new UnauthorizedError('Username has to be at least 3 characters long')
+    else if (username.length < 3 || username.length > 30 ) {
+      throw new UnauthorizedError('Username has to be 3 - 16 characters long')
     }
     const hashedPassword: string = await hashPassword(password);
     const user = await User.create({ username, password: hashedPassword });
