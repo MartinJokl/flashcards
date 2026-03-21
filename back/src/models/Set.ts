@@ -3,12 +3,10 @@ import mongoose from "mongoose";
 const setSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'You must provide a name'],
-        maxlength: 30
+        required: [true, 'You must provide a name']
     },
     description: {
-        type: String,
-        maxlength: 200
+        type: String
     },
     createdBy: {
         type: mongoose.Types.ObjectId,
@@ -25,7 +23,6 @@ const setSchema = new mongoose.Schema({
             question: String,
             answer: String
         }],
-        maxlength: 1000,
         required: [true, 'You must provide flashcards']
     },
     likes: {
