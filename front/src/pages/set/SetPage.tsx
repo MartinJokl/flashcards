@@ -50,6 +50,12 @@ function SetPage() {
     }
     navigate(`/practise/${set.id}`)
   }
+  function testSet() {
+    if (!set) {
+      return;
+    }
+    navigate(`/test/${set.id}`)
+  }
 
   async function likeButtonPressed() {
     if (!set) {
@@ -95,7 +101,7 @@ function SetPage() {
 
             <div className="set-page-play-container">
               <button onClick={practiseSet} className="primary-button">Practise</button>
-              <button className="primary-button">Test</button>
+              <button onClick={testSet} className="primary-button">Test</button>
             </div>
 
             <p className={`set-page-share-feedback feedback-text ${shareFeedbackText === '' ? '' : 'visible' }`}>{shareFeedbackText || 'Error'}</p>

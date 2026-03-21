@@ -1,0 +1,37 @@
+.test-page-name {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.test-page-not-exist {
+  text-align: center;
+}
+.test-questions-container {
+  display: grid;
+  width: max-content;
+  margin: auto;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+.test-questions-container.show-answers {
+  grid-template-columns: auto auto auto;
+}
+.test-question {
+  font-size: 1.25rem;
+}
+.test-correction-text {
+  margin: 0;
+}
+.test-correction-text.correct {
+  color: var(--success-color);
+}
+.test-correction-text.wrong {
+  color: var(--error-color);
+}
+.test-button-container {
+  margin: 3rem;
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+}
