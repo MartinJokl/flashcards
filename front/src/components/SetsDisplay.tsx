@@ -32,16 +32,10 @@ function SetsDisplay() {
   useEffect(() => {
     const params = new URLSearchParams([['getCount', 'true'], ['limit', String(limit)], ['sort', sort]])
     if (likedFilter) {
-      if (!user) {
-        return;
-      }
-      params.append('likerId', user.id);
+      params.append('likerId', user?.id ?? 'no');
     }
     if (mySetFilter) {
-      if (!user) {
-        return;
-      }
-      params.append('createdBy', user.id)
+      params.append('createdBy', user?.id ?? 'no')
     }
     if (user) {
       params.append('potencialLiker', user.id);
@@ -60,6 +54,10 @@ function SetsDisplay() {
             setHits(response.data.hits)
           }
           setSets(response.data.sets)
+        }
+        else {
+          setHits(0);
+          setSets([]);
         }
       });
 
@@ -103,30 +101,30 @@ function SetsDisplay() {
 
   return (
     <>
+      <div className="sets-display-options">
+        <div>
+          <span>Sort: </span>
+          <select className="sets-display-sort-selector" value={sort} onChange={changeSort}>
+            <option value="-likes">Most liked</option>
+            <option value="-createdAt">Newest</option>
+            <option value="createdAt">Oldest</option>
+          </select>
+        </div>
+        <div>
+          <span>Liked</span>
+          <input type="checkbox" checked={likedFilter} onChange={changeLikedFilter} />
+        </div>
+        <div>
+          <span>My set</span>
+          <input type="checkbox" checked={mySetFilter} onChange={changeMySetFilter} />
+        </div>
+      </div>
       {hits === 0
       ? (
         <p className="sets-display-nothing">Nothing found</p>
       ) : (
         <div className="sets-display-container">
           {creatorName && <h1 className="sets-display-creator">Sets from {creatorName}</h1>}
-          <div className="sets-display-options">
-            <div>
-              <span>Sort: </span>
-              <select className="sets-display-sort-selector" value={sort} onChange={changeSort}>
-                <option value="-likes">Most liked</option>
-                <option value="-createdAt">Newest</option>
-                <option value="createdAt">Oldest</option>
-              </select>
-            </div>
-            <div>
-              <span>Liked</span>
-              <input type="checkbox" checked={likedFilter} onChange={changeLikedFilter} />
-            </div>
-            <div>
-              <span>My set</span>
-              <input type="checkbox" checked={mySetFilter} onChange={changeMySetFilter} />
-            </div>
-          </div>
           {sets.map((set) => (
             <SetDisplay set={set} key={set.id} />
           ))}
