@@ -39,7 +39,7 @@ function Header() {
   return (
     <header>
       <div id='header-logo'><NavLink className='header-nav-link' to='/'>Home</NavLink></div>
-      <div id='header-home'><NavLink className='header-nav-link' to='/create'>Create</NavLink></div>
+      <div id='header-home'><NavLink className='header-nav-link' to={user ? `/create` : '/login/'}>Create</NavLink></div>
       <div id='header-search'>
         <input 
           type="text" 
