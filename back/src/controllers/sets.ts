@@ -131,6 +131,13 @@ export async function createSet(req: Request<{}, {}, SetBody>, res: Response<IdR
 export async function updateSet(req: Request<IdParams, {}, SetBody>, res: Response<MessageResponse>) {
     const user: UserReqType = req.user!;
     const setId: string = req.params.id;
+
+    if (req.body && req.body.flashcards != undefined && req.body.flashcards.length === 0) {
+        throw new BadRequestError('You must provide at least 1 flashcard');
+    }
+    if (req.body && req.body.name != undefined && req.body.name === '') {
+        throw new BadRequestError('You must provide a name');
+    }
     
     const set = await Set.findOneAndUpdate({ _id: setId, createdBy: user.id }, req.body, { runValidators: true });
     if (!set) {
