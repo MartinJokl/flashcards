@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, type ChangeEvent } from "react";
 import { useSearchParams } from "react-router";
 import { normalAxios } from "../axiosInstance";
 import type { AxiosResponse } from "axios";
@@ -19,6 +19,8 @@ function SetsDisplay() {
   const [hits, setHits] = useState(0);
   const [creatorName, setCreatorName] = useState<string | null>(null)
 
+  const [sort, setSort] = useState('-likes');
+
   const pages: number = Math.ceil(hits / limit);
   const page: number = Number(searchParams.get('page') ?? 1)
   if (page > pages) {
@@ -26,7 +28,7 @@ function SetsDisplay() {
   }
 
   useEffect(() => {
-    const params = new URLSearchParams([['getCount', 'true'], ['limit', String(limit)]])
+    const params = new URLSearchParams([['getCount', 'true'], ['limit', String(limit)], ['sort', sort]])
     if (user) {
       params.append('potencialLiker', user.id);
     }
@@ -47,7 +49,7 @@ function SetsDisplay() {
         }
       });
 
-  }, [page, searchParams, user])
+  }, [page, searchParams, user, sort])
   useEffect(() => {
     if (searchParams.has('createdBy')) {
       normalAxios.get(`/api/accounts/${searchParams.get('createdBy')}`)
@@ -75,6 +77,10 @@ function SetsDisplay() {
     }
   }
 
+  function sortChanged(event: ChangeEvent<HTMLSelectElement, HTMLSelectElement>): void {
+    setSort(event.target.value);
+  }
+
   return (
     <>
       {hits === 0
@@ -83,6 +89,14 @@ function SetsDisplay() {
       ) : (
         <div className="sets-display-container">
           {creatorName && <h1 className="sets-display-creator">Sets from {creatorName}</h1>}
+          <div className="sets-display-sort-container">
+            <span>Sort: </span>
+            <select className="sets-display-sort-selector" value={sort} onChange={sortChanged}>
+              <option value="-likes">Most liked</option>
+              <option value="-createdAt">Newest</option>
+              <option value="createdAt">Oldest</option>
+            </select>
+          </div>
           {sets.map((set) => (
             <SetDisplay set={set} key={set.id} />
           ))}

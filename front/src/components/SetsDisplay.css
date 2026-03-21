@@ -18,3 +18,8 @@
 .sets-display-creator {
   text-align: center;
 }
+.sets-display-sort-container {
+  text-align: center;
+  margin: 1rem;
+  font-size: 1.25rem;
+}
