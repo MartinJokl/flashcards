@@ -21,7 +21,7 @@
   justify-content: center;
 }
 .set-page-share-feedback {
-  color: var(--color);
+  color: var(--success-color);
 }
 .set-page-play-container {
   margin: 2rem auto;
