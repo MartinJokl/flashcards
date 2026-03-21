@@ -159,7 +159,7 @@ export async function likeSet(req: Request<IdParams>, res: Response<MessageRespo
     const setId: string = req.params.id;
     const set = await Set.findByIdAndUpdate(setId, { 
         $addToSet: { likers: userId }
-    }, { new: true });
+    }, { returnDocument: 'after' });
 
     if (!set) {
         throw new NotFoundError('Set does not exist');
@@ -178,7 +178,7 @@ export async function unlikeSet(req: Request<IdParams>, res: Response<MessageRes
     const setId: string = req.params.id;
     const set = await Set.findByIdAndUpdate(setId, { 
         $pull: { likers: userId }
-    }, { new: true });
+    }, { returnDocument: 'after' });
 
     if (!set) {
         throw new NotFoundError('Set does not exist');
