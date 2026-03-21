@@ -21,7 +21,7 @@ function PractisePage() {
   const [cards, setCards] = useState<Flashcard[]>([]);
   const [wrongCards, setWrongCards] = useState<Flashcard[]>([]);
 
-  const flashcardEl = useRef<HTMLDivElement>(null)
+  const flashcardEl = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const id = params.id;
@@ -135,9 +135,9 @@ function PractisePage() {
                   <p className="practise-page-progress">{currentCard + 1} / {cards.length}</p>
                   <div className="flashcard-stats-container">
                     <div className="practise-wrong">{wrongCards.length} wrong</div>
-                    <div ref={flashcardEl} className="flashcard" onClick={flipCard}>
+                    <button ref={flashcardEl} className="flashcard" onClick={flipCard}>
                       <div>{questionSide ? cards[currentCard].question : cards[currentCard].answer}</div>
-                    </div>
+                    </button>
                     <div className="practise-correct">{currentCard - wrongCards.length} correct</div>
                   </div>
                   <div className="practise-page-button-container">

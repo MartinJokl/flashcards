@@ -10,7 +10,7 @@
 .flashcard {
   background-color: var(--bg);
   width: min(600px, 90%);
-  height: min(400px, calc(50vh - var(--header-height) - 1rem));;
+  height: min(400px, calc(80vh - var(--header-height) - 9rem));;
   margin: min(5rem, 5vh) auto;
   text-align: center;
   align-content: center;
@@ -61,7 +61,7 @@
 
 .flashcard-stats-container {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
   justify-items: center;
   align-items: center;
 }
