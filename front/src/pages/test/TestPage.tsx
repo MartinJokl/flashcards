@@ -96,6 +96,20 @@ function TestPage() {
                 </Fragment>
               ))}
             </div>
+            {showAsnwers && <p>{(() => {
+              const questionCount: number = randomCards.length;
+              let correctCount: number = 0;
+              randomCards.forEach((card: Flashcard, index: number) => {
+                if (card.answer === userAnswers[index]) {
+                  correctCount++;
+                }
+              });
+              const percentage = Math.round(correctCount / questionCount * 100);
+              return (
+                <p className="test-score-text">{correctCount}/{questionCount} correct, {percentage}%</p>
+              )
+            })()}</p>}
+
             <div className="test-button-container">
               <button onClick={reset}>Reset</button>
               <button onClick={checkAnswers} disabled={showAsnwers}>Check answers</button>
