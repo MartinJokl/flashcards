@@ -53,7 +53,7 @@ function SetsDisplay() {
     normalAxios.get(`/api/sets?${params.toString()}`)
       .then((response: AxiosResponse<SetsResponse>) => {
         if (response.status === 200) {
-          if (response.data.hits) {
+          if (response.data.hits !== undefined) {
             setHits(response.data.hits)
           }
           setSets(response.data.sets)
