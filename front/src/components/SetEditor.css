@@ -1,5 +1,5 @@
 .set-editor-input-container {
-  width: min(700px, 90%);
+  width: min(700px, 90vw);
   margin: 3rem auto;
 }
 .set-editor-flashcards-container {
@@ -8,7 +8,7 @@
   padding: 1rem;
   justify-content: center;
   justify-items: center;
-  grid-template-columns: repeat(auto-fit, 350px);
+  grid-template-columns: repeat(auto-fit, min(350px, 90vw));
   margin-bottom: 3rem;
 }
 .set-editor-card-container {
