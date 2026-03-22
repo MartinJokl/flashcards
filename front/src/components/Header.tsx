@@ -44,13 +44,13 @@ function Header() {
           type="text" 
           id='header-search-input' 
           placeholder='Search' 
-          
           value={searchInput} 
           onChange={updateSearchInput}
-          onKeyDown={searchBarKeyPressed} />
-          <button id='header-search-button' onClick={search}>
-            <span className="material-icons md-24">search</span>
-          </button>
+          onKeyDown={searchBarKeyPressed} 
+        />
+        <button id='header-search-button' onClick={search}>
+          <span className="material-icons md-24">search</span>
+        </button>
       </div>
       {user 
       ? (

@@ -34,7 +34,6 @@ header {
   font-size: min(1.5rem, 3vw);
   padding: 0.25rem 0.75rem;
   border-radius: 0;
-  min-width: 0;
 }
 
 .header-nav-link {
