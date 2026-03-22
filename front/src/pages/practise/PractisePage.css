@@ -17,7 +17,7 @@
   font-size: 1.5rem;
   transition: transform 0.2s, background-color 0.2s;
 }
-.flashcard:hover {
+.flashcard:hover, .flashcard:active {
   transform: rotateY(15deg) skewY(-1deg);
   background-color: var(--bg-light);
 }
@@ -25,7 +25,7 @@
   transform: rotateY(180deg) rotateZ(0);
   background-color: var(--bg);
 }
-.flashcard.flipped:hover {
+.flashcard.flipped:hover, .flashcard.flipped:active  {
   transform: rotateY(165deg) skewY(1deg);
   background-color: var(--bg-light);
 }
