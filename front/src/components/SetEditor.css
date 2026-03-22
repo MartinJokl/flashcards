@@ -4,15 +4,16 @@
 }
 .set-editor-flashcards-container {
   display: grid;
-  row-gap: 3rem;
-  justify-content: start;
+  gap: 2rem;
+  padding: 1rem;
+  justify-content: center;
   justify-items: center;
   grid-template-columns: repeat(auto-fit, 350px);
   margin-bottom: 3rem;
 }
 .set-editor-card-container {
   background-color: var(--bg);
-  width: 300px;
+  width: 100%;
   padding: 1rem;
   padding-top: 0.125rem;
   border-radius: 10px;
@@ -20,7 +21,7 @@
 }
 .set-editor-card-adder {
   font-size: 7rem;
-  width: 300px;
+  width: 100%;
   background-color: var(--bg);
   color: var(--text-muted)
 }
