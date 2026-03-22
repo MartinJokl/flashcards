@@ -103,7 +103,7 @@ function SetsDisplay() {
   }
 
   return (
-    <>
+    <div className="sets-display-everything-container">
       <div className="sets-display-options">
         <div>
           <span>Sort: </span>
@@ -151,7 +151,7 @@ function SetsDisplay() {
           </div>
       </div>
       )}
-    </>
+    </div>
   )
 }
 

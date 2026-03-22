@@ -1,9 +1,12 @@
+
+
 .page-button-container {
   text-align: center;
   margin-top: auto;
 }
 .page-button-container > button {
-  margin: 1rem min(0.5rem, 2vw);
+  margin: 0 min(0.5rem, 2vw);
+  margin-top: 1;
   padding: 0.5rem min(1rem, 3vw);
   font-size: min(1.25rem, 4vw);
 }
@@ -11,7 +14,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: calc(100vh - var(--header-height) - 5rem);
+  flex-grow: 1;
+}
+.sets-display-everything-container {
+  min-height: calc(100vh - var(--header-height));
+  margin: 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 .sets-display-nothing {
   margin-top: 3rem;
@@ -29,7 +39,7 @@
   align-items: center;
 }
 .sets-display-options {
-  margin: 1rem;
+  margin: 0 1rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
