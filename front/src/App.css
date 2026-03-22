@@ -37,6 +37,13 @@ button:disabled {
 .red-button:hover {
   background-color: var(--error-muted);
 }
+/* Disable hover effect on touch screen devices */
+@media (hover: none) {
+  button:hover { background-color: var(--bg-light); }
+  .primary-button:hover { background-color: var(--color-bg); }
+  .red-button:hover { background-color: var(--error-bg); }
+}
+
 input {
   background-color: var(--bg-light);
   border: none;
