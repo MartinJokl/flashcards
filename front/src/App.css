@@ -120,6 +120,7 @@ input[type="checkbox"] {
 }
 input[type="checkbox"]::before {
   content: "✔";
+  color: var(--text);
   font-size: 1rem;
   position: absolute;
   top: 0;
