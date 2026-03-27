@@ -62,7 +62,8 @@ body.hasHover .flashcard.flipped:hover {
 
 .flashcard-stats-container {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: auto 3fr auto;
+  padding: 0 max(1rem, 7vw);
   justify-items: center;
   align-items: center;
 }
@@ -81,11 +82,12 @@ body.hasHover .flashcard.flipped:hover {
   display: flex;
   width: max-content;
   margin: auto;
-  column-gap: 1.5rem;
+  column-gap: min(1.5rem, 3vw);
   padding: 1rem;
 }
 .practise-page-button-container > button {
-  font-size: min(1.25rem, 3vw);
+  font-size: min(1.25rem, 4vw);
+  padding: 0.5rem min(1.5rem, 3vw);
 }
 
 .practise-progress-bar-bottom {
@@ -108,5 +110,7 @@ body.hasHover .flashcard.flipped:hover {
 }
 .practise-summary-button-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }

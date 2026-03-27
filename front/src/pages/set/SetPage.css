@@ -36,6 +36,8 @@
 .set-page-play-container {
   margin: 2rem auto;
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
   column-gap: 1rem;
   justify-content: center;
 }
