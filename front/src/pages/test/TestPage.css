@@ -23,19 +23,40 @@
 .test-correction-text {
   margin: 0;
 }
-.test-correction-text.correct {
+.test-correction-text {
   color: var(--success-color);
-}
-.test-correction-text.wrong {
-  color: var(--error-color);
 }
 .test-button-container {
   margin: 2rem;
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
   justify-content: center;
   column-gap: 1rem;
 }
 .test-score-text {
   text-align: center;
   color: var(--text)
+}
+.test-answer-box {
+  max-width: 95vw;
+}
+.test-answer-box.correct {
+  color: var(--success-color);
+}
+.test-answer-box.wrong {
+  color: var(--error-color);
+}
+
+@media screen and (max-width: 45rem) {
+  .test-question {
+    padding-top: 1.5rem;
+  }
+  .test-questions-container{
+    grid-template-columns: auto;
+    row-gap: 0.25rem;
+  }
+  .test-questions-container.show-answers{
+    grid-template-columns: auto;
+  }
 }

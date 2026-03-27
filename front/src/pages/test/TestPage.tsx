@@ -79,7 +79,7 @@ function TestPage() {
                 <Fragment key={card.key}>
                   <span className="test-question">{card.question}</span>
                   <input 
-                    className="test-answer-box" 
+                    className={`test-answer-box ${showAsnwers && ((userAnswers[index] ?? '').toUpperCase() === card.answer.toUpperCase() ? 'correct' : 'wrong')}`}
                     type="text" 
                     disabled={showAsnwers}
                     value={userAnswers[index] ?? ''}
@@ -87,12 +87,11 @@ function TestPage() {
                     name={String(index)}
                   />
                   {showAsnwers && (
-                    ((userAnswers[index] ?? '') === card.answer)
-                    ? (
-                      <p className={"test-correction-text correct"}>Correct</p>
-                    ) : (
-                      <p className={"test-correction-text wrong"}>{card.answer}</p>
-                    )
+                    <p className={"test-correction-text"}>
+                      {(userAnswers[index] ?? '').toUpperCase() === card.answer.toUpperCase() 
+                      ? '✔' 
+                      : card.answer}
+                    </p>
                   )}
                 </Fragment>
               ))}
@@ -101,7 +100,7 @@ function TestPage() {
               const questionCount: number = randomCards.length;
               let correctCount: number = 0;
               randomCards.forEach((card: Flashcard, index: number) => {
-                if (card.answer === userAnswers[index]) {
+                if (card.answer.toUpperCase() === (userAnswers[index] ?? '').toUpperCase()) {
                   correctCount++;
                 }
               });
