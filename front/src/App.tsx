@@ -21,6 +21,7 @@ import CreatePage from './pages/create/CreatePage';
 import EditPage from './pages/edit/EditPage';
 import DeletePage from './pages/delete/DeletePage';
 import './App.css'
+import useHoverClass from './hooks/hoverClass';
 
 interface userIdJwtPayload extends JwtPayload {
   userId: string
@@ -53,36 +54,7 @@ function App() {
     initUser();
   }, []);
 
-  // This should disable hover effects on touch screens
-  useEffect(() => {
-    // lastTouchTime is used for ignoring emulated mousemove events
-    let lastTouchTime: number = 0
-
-    function enableHover() {
-      if (Date.now() - lastTouchTime < 500) return
-      document.body.classList.add('hasHover')
-    }
-
-    function disableHover() {
-      document.body.classList.remove('hasHover')
-    }
-
-    function updateLastTouchTime() {
-      lastTouchTime = Date.now();
-    }
-
-    document.addEventListener('touchstart', updateLastTouchTime, true);
-    document.addEventListener('touchstart', disableHover, true);
-    document.addEventListener('mousemove', enableHover, true);
-
-    enableHover();
-
-    return () => {
-      document.removeEventListener('touchstart', updateLastTouchTime, true);
-      document.removeEventListener('touchstart', disableHover, true);
-      document.removeEventListener('mousemove', enableHover, true);
-    }
-  }, []);
+  useHoverClass();
 
   return (
     <UserContext.Provider value={{user, reloadUser}}>
