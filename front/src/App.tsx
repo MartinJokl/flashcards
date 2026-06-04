@@ -29,7 +29,7 @@ interface userIdJwtPayload extends JwtPayload {
 function App() {
   const [user, setUser] = useState<User | null>(null);
 
-  async function reloadUser(): Promise<void> {
+  async function reloadUser(setNullIfFails: boolean = true): Promise<void> {
     const token: string | null = getToken();
     if (token) {
       const payload = jwtDecode(token) as userIdJwtPayload;
@@ -38,19 +38,19 @@ function App() {
       const response: AxiosResponse<UserResponse> = await normalAxios.get(`/api/accounts/${id}`);
       if (response.status === 200) {
         setUser({ username: response.data.username, id });
-      }
-      else {
-        setUser(null);
+        return;
       }
     }
-    else {
+    if (setNullIfFails) {
       setUser(null);
     }
   }
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    reloadUser();
+    async function initUser() {
+      await reloadUser(false);
+    }
+    initUser();
   }, []);
 
   // This should disable hover effects on touch screens
